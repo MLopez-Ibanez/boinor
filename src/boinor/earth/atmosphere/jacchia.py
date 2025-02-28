@@ -29,6 +29,7 @@ class Jacchia77:
         self.Texo = Texo
 
     def _altitude_profile(self, alt):
+        """set altitude profile"""
         Z, T, CN2, CO2, CO, CAr, CHe, CH, CM, WM = _altitude_profile_fast(
             alt, self.Texo.to_value(u.K), self.x, self.y, self.E5M, self.E6P
         )
