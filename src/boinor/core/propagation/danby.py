@@ -59,14 +59,14 @@ def danby_coe(k, p, ecc, inc, raan, argp, nu, tof, numiter=20, rtol=1e-8):
 
             nu = np.arctan2(sta, cta)
             break
-        else:
-            delta = -f / fp
-            delta_star = -f / (fp + 0.5 * delta * fpp)
-            deltak = -f / (
-                fp + 0.5 * delta_star * fpp + delta_star**2 * fppp / 6
-            )
-            E = E + deltak
-            n += 1
+
+        delta = -f / fp
+        delta_star = -f / (fp + 0.5 * delta * fpp)
+        deltak = -f / (
+            fp + 0.5 * delta_star * fpp + delta_star**2 * fppp / 6
+        )
+        E = E + deltak
+        n += 1
     else:
         raise ValueError("Maximum number of iterations has been reached.")
 

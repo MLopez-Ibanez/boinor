@@ -125,8 +125,7 @@ def vallado(k, r0, v0, tof, numiter):
         )
         if abs(xi_new - xi) < 1e-7:
             break
-        else:
-            count += 1
+        count += 1
     else:
         raise RuntimeError("Maximum number of iterations reached")
 
