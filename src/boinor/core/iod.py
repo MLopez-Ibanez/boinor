@@ -323,13 +323,14 @@ def _compute_psi(x, y, ll):
         # Elliptic motion
         # Use arc cosine to avoid numerical errors
         return np.arccos(x * y + ll * (1 - x**2))
-    elif x > 1:
+
+    if x > 1:
         # Hyperbolic motion
         # The hyperbolic sine is bijective
         return np.arcsinh((y - x * ll) * np.sqrt(x**2 - 1))
-    else:
-        # Parabolic motion
-        return 0.0
+
+    # Parabolic motion
+    return 0.0
 
 
 @jit
@@ -416,23 +417,23 @@ def _initial_guess(T, ll, M, lowpath):
             x_0 = np.exp(np.log(2) * np.log(T / T_0) / np.log(T_1 / T_0)) - 1
 
         return x_0
-    else:
-        # Multiple revolution
-        x_0l = (((M * pi + pi) / (8 * T)) ** (2 / 3) - 1) / (
-            ((M * pi + pi) / (8 * T)) ** (2 / 3) + 1
-        )
-        x_0r = (((8 * T) / (M * pi)) ** (2 / 3) - 1) / (
-            ((8 * T) / (M * pi)) ** (2 / 3) + 1
-        )
 
-        # Select one of the solutions according to desired type of path
-        x_0 = (
-            np.max(np.array([x_0l, x_0r]))
-            if lowpath
-            else np.min(np.array([x_0l, x_0r]))
-        )
+    # Multiple revolution
+    x_0l = (((M * pi + pi) / (8 * T)) ** (2 / 3) - 1) / (
+        ((M * pi + pi) / (8 * T)) ** (2 / 3) + 1
+    )
+    x_0r = (((8 * T) / (M * pi)) ** (2 / 3) - 1) / (
+        ((8 * T) / (M * pi)) ** (2 / 3) + 1
+    )
 
-        return x_0
+    # Select one of the solutions according to desired type of path
+    x_0 = (
+        np.max(np.array([x_0l, x_0r]))
+        if lowpath
+        else np.min(np.array([x_0l, x_0r]))
+    )
+
+    return x_0
 
 
 @jit

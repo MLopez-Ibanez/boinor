@@ -35,8 +35,8 @@ def alinspace(start, stop=None, num=50, endpoint=True):
 
     if endpoint:
         return np.linspace(start, stop_, num)
-    else:
-        return np.linspace(start, stop_, num + 1)[:-1]
+
+    return np.linspace(start, stop_, num + 1)[:-1]
 
 
 @jit

@@ -115,9 +115,9 @@ class _PlanetaryICRS(BaseRADecFrame):
     def self_transform(from_coo, to_frame):
         if np.all(from_coo.obstime == to_frame.obstime):
             return to_frame.realize_frame(from_coo.data)
-        else:
-            # Like CIRS, we do this self-transform via ICRS
-            return from_coo.transform_to(ICRS).transform_to(to_frame)
+
+        # Like CIRS, we do this self-transform via ICRS
+        return from_coo.transform_to(ICRS).transform_to(to_frame)
 
 
 class MercuryICRS(_PlanetaryICRS):

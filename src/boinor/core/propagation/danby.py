@@ -17,7 +17,7 @@ def danby_coe(k, p, ecc, inc, raan, argp, nu, tof, numiter=20, rtol=1e-8):
         nu = M - 2 * np.pi * np.floor(M / 2 / np.pi)
         return nu
 
-    elif ecc < 1.0:
+    if ecc < 1.0:
         # For elliptical orbit
         M0 = E_to_M(nu_to_E(nu, ecc), ecc)
         M = M0 + n * tof

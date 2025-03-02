@@ -85,8 +85,8 @@ class EarthSatellite:
                     ],
                     axis=0,
                 )
-            else:
-                return np.array([0, 0, 0])
+
+            return np.array([0, 0, 0])
 
         if gravity is EarthGravity.J2:
             perturbations[J2_perturbation] = {

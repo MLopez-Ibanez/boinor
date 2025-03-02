@@ -604,66 +604,60 @@ class OrbitPlotter:
                 ],
             )
             return [(impulse_label, impulse_lines)]
-        else:
-            # Declare for holding (label, lines) for each impulse and trajectory
-            lines_list = []
 
-            # Collect the coordinates for the different maneuver phases
-            for ith_impulse, orbit_phase in enumerate(maneuver_phases):
-                # Project the coordinates into desired frame for 2D backends
-                if self.backend.is_2D:
-                    orbit_phase_r = (
-                        np.asarray(
-                            self._project(
-                                [
-                                    orbit_phase.r.to_value(
-                                        self.length_scale_units
-                                    )
-                                ]
-                            )
-                        ).flatten()
-                        * self.length_scale_units
-                    )
-                else:
-                    orbit_phase_r = orbit_phase.r
+        # Declare for holding (label, lines) for each impulse and trajectory
+        lines_list = []
 
-                # Plot the impulse marker and collect its label and lines
-                impulse_label = f"Impulse {ith_impulse + 1} - {label}"
-                impulse_lines = self.backend.draw_impulse(
-                    position=orbit_phase_r.to_value(self.length_scale_units),
-                    color=color,
-                    label=impulse_label,
-                    size=None,
+        # Collect the coordinates for the different maneuver phases
+        for ith_impulse, orbit_phase in enumerate(maneuver_phases):
+            # Project the coordinates into desired frame for 2D backends
+            if self.backend.is_2D:
+                orbit_phase_r = (
+                    np.asarray(
+                        self._project(
+                            [orbit_phase.r.to_value(self.length_scale_units)]
+                        )
+                    ).flatten()
+                    * self.length_scale_units
                 )
-                lines_list.append((impulse_label, impulse_lines))
+            else:
+                orbit_phase_r = orbit_phase.r
 
-                # HACK: if no color is provided, get the one randomly generated
-                # for previous impulse lines
-                color = (
-                    impulse_lines[0][0].get_color() if color is None else color
+            # Plot the impulse marker and collect its label and lines
+            impulse_label = f"Impulse {ith_impulse + 1} - {label}"
+            impulse_lines = self.backend.draw_impulse(
+                position=orbit_phase_r.to_value(self.length_scale_units),
+                color=color,
+                label=impulse_label,
+                size=None,
+            )
+            lines_list.append((impulse_label, impulse_lines))
+
+            # HACK: if no color is provided, get the one randomly generated
+            # for previous impulse lines
+            color = impulse_lines[0][0].get_color() if color is None else color
+
+            # Get the propagation time required before next impulse
+            time_to_next_impulse, _ = maneuver.impulses[ith_impulse + 1]
+
+            # Collect the coordinate points for the i-th orbit phase
+            # TODO: Remove `.sample()` to return Ephem and use `plot_ephem` instead?
+            phase_coordinates = orbit_phase.to_ephem(
+                strategy=EpochBounds(
+                    min_epoch=orbit_phase.epoch,
+                    max_epoch=orbit_phase.epoch + time_to_next_impulse,
                 )
+            ).sample()
 
-                # Get the propagation time required before next impulse
-                time_to_next_impulse, _ = maneuver.impulses[ith_impulse + 1]
-
-                # Collect the coordinate points for the i-th orbit phase
-                # TODO: Remove `.sample()` to return Ephem and use `plot_ephem` instead?
-                phase_coordinates = orbit_phase.to_ephem(
-                    strategy=EpochBounds(
-                        min_epoch=orbit_phase.epoch,
-                        max_epoch=orbit_phase.epoch + time_to_next_impulse,
-                    )
-                ).sample()
-
-                # Plot the phase trajectory and collect its label and lines
-                trajectory_lines = self.plot_coordinates(
-                    phase_coordinates,
-                    position=None,
-                    color=color,
-                    label=label,
-                    trail=trail,
-                )
-                lines_list.append((label, trajectory_lines))
+            # Plot the phase trajectory and collect its label and lines
+            trajectory_lines = self.plot_coordinates(
+                phase_coordinates,
+                position=None,
+                color=color,
+                label=label,
+                trail=trail,
+            )
+            lines_list.append((label, trajectory_lines))
 
             # Finally, draw the impulse at the very beginning of the final phase
             impulse_label = f"Impulse {ith_impulse + 2} - {label}"

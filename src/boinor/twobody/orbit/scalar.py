@@ -225,7 +225,8 @@ class Orbit(OrbitCreationMixin):
         """
         if self.attractor == new_attractor:
             return self
-        elif self.attractor == new_attractor.parent:  # "Sun -> Earth"
+
+        if self.attractor == new_attractor.parent:  # "Sun -> Earth"
             r_soi = laplace_radius(new_attractor)
             barycentric_position = get_body_barycentric(
                 new_attractor.name, self.epoch

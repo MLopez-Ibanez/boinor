@@ -358,5 +358,5 @@ class Ephem:
 
         if epochs is not None and epochs.isscalar:
             return r[0], v[0]
-        else:
-            return r, v
+
+        return r, v

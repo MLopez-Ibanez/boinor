@@ -37,7 +37,7 @@ def recseries_coe(
 
         return nu
 
-    elif ecc < 1.0:
+    if ecc < 1.0:
         # Solving for elliptical orbit
 
         # compute initial mean anoamly
@@ -68,11 +68,15 @@ def recseries_coe(
 
         return E_to_nu(E, ecc)
 
-    else:
-        # Parabolic/Hyperbolic orbits are not supported
-        raise ValueError("Parabolic/Hyperbolic orbits not supported.")
+    # original
+    #    else:
+    #        # Parabolic/Hyperbolic orbits are not supported
+    #        raise ValueError("Parabolic/Hyperbolic orbits not supported.")
+    #
+    #    return nu
 
-    return nu
+    # Parabolic/Hyperbolic orbits are not supported
+    raise ValueError("Parabolic/Hyperbolic orbits not supported.")
 
 
 @jit
