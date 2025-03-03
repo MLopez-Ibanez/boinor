@@ -5,6 +5,10 @@
 ### Highlights
 
 - **boinor**
+  Taking care of pylint tags:
+  - super-init-not-called
+  - no-else-break
+  - no-else-return
 
 ### Coverage
 
