@@ -276,11 +276,6 @@
   },
   {
     "state": "OPEN",
-    "title": "Obtain FAIR badge",
-    "url": "https://github.com/poliastro/poliastro/issues/1320"
-  },
-  {
-    "state": "OPEN",
     "title": "Boolean event detectors",
     "url": "https://github.com/poliastro/poliastro/issues/1317"
   },
