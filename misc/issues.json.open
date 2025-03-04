@@ -91,11 +91,6 @@
   },
   {
     "state": "OPEN",
-    "title": "Add argument to PorkchopPlotter.porkchop() to not draw plot.",
-    "url": "https://github.com/poliastro/poliastro/issues/1589"
-  },
-  {
-    "state": "OPEN",
     "title": "Extracting velocity vectors from Orbit object ",
     "url": "https://github.com/poliastro/poliastro/issues/1586"
   },

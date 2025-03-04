@@ -149,7 +149,7 @@ class PorkchopPlotter:
         self.max_c3 = max_c3
         self.max_vhp = max_vhp
 
-    def porkchop(self):
+    def plot(self):
         """Plots porkchop between two bodies.
 
         Returns
@@ -273,3 +273,6 @@ class PorkchopPlotter:
             c3_arrival * u.km**2 / u.s**2,
             tof * u.d,
         )
+
+    def porkchop(self):
+        return self.plot()

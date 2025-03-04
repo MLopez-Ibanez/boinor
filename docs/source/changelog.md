@@ -26,6 +26,8 @@ The code coverage increased from 91.45% to 91.67%.
 
 - add cartesion_to_spherical ({github}`poliastro pull request #1365 <poliastro/poliastro#1365>`)
 - no more pylint warning for super init not called on mixin class ({github}`poliastro pull request #1554 <poliastro/poliastro#1554>`)
+- add argument to PorkchopPlotter.porkchop() to not draw plot ({github}`poliastro pull request #1589 <poliastro/poliastro#1589>`)
+  the bug was not solved but the suggestion to unify the user experience with the PorkcopPlotter() has been implemented
 
 ### Contributors
 
