@@ -66,11 +66,6 @@
   },
   {
     "state": "OPEN",
-    "title": "unable to install poliastro through spyder",
-    "url": "https://github.com/poliastro/poliastro/issues/1604"
-  },
-  {
-    "state": "OPEN",
     "title": "Incorrect calculation of maneuver time of flight",
     "url": "https://github.com/poliastro/poliastro/issues/1602"
   },

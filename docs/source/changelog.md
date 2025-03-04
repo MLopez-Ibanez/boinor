@@ -20,7 +20,7 @@ The code coverage increased from 91.45% to 91.67%.
 ### Bugs fixed
 
 - obtain FAIR badge ({github}`poliastro issue #1320 <poliastro/poliastro#1320>`)
--
+- unable to install poliastro through spyder ({github}`poliastro issue #1604 <poliastro/poliastro#1604>`)
 
 ### Pull requests
 
