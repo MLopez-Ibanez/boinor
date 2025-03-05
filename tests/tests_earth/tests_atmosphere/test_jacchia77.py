@@ -267,14 +267,14 @@ def test_density(z):
 
 @pytest.mark.parametrize("z", jacchia77_solutions.keys())
 def test_H_correction(z):
-    Jacchia77(1000 * u.K)._H_correction(100)
+    Jacchia77(1000 * u.K)._H_correction(200)
     # TODO: at the moment it is only checked whether the call does work (it didn't before)
     #       later one has to check the results as well
 
 
 @pytest.mark.parametrize("z", jacchia77_solutions.keys())
 def test_O_and_O2_correction(z):
-    Jacchia77(1000 * u.K)._O_and_O2_correction(100)
+    Jacchia77(1000 * u.K)._O_and_O2_correction(200)
     # TODO: at the moment it is only checked whether the call does work (it didn't before)
     #       later one has to check the results as well
 
