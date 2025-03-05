@@ -21,6 +21,8 @@ The code coverage increased from 91.45% to 91.67%.
 
 - obtain FAIR badge ({github}`poliastro issue #1320 <poliastro/poliastro#1320>`)
 - unable to install poliastro through spyder ({github}`poliastro issue #1604 <poliastro/poliastro#1604>`)
+- Jacchia77 (U.S Standard Atmosphere 1962) very likely broken (and untested) ({github}`poliastro issue #1562 <poliastro/poliastro#1562>`)
+  This bug is not yet completely fixed, see ({github}`boinor issue #7 <boinor/boinor#7>`)
 
 ### Pull requests
 
