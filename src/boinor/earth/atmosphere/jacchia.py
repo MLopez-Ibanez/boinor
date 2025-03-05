@@ -71,11 +71,32 @@ class Jacchia77:
 
     def _H_correction(self, alt):
         """Calculate [H] from Jacchia 1977 formulas."""
-        _H_correction_fast(alt, self.Texo)
+        Z, T, CN2, CO2, CO, CAr, CHe, CH, CM, WM = self._altitude_profile(alt)
+        _H_correction_fast(
+            alt,
+            self.Texo,
+            self.x,
+            self.y,
+            Z,
+            T,
+            CN2,
+            CO2,
+            CO,
+            CAr,
+            CHe,
+            CH,
+            CM,
+            WM,
+        )
 
     def _O_and_O2_correction(self, alt):
         """Add Jacchia 1977 empirical corrections to [O] and [O2]."""
-        _O_and_O2_correction_fast(alt, self.Texo)
+        Z, T, CN2, CO2, CO, CAr, CHe, CH, CM, WM = self._altitude_profile(alt)
+        _O_and_O2_correction_fast(
+            alt, self.Texo, Z, CN2, CO2, CO, CAr, CHe, CH, CM, WM
+        )
+
+    #        _O_and_O2_correction_fast(alt, self.Texo)
 
     def altitude_profile(self, alt):
         """Solves for atmospheric altitude profile at given altitude and exospheric temperature.

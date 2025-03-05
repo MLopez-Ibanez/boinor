@@ -106,11 +106,6 @@
   },
   {
     "state": "OPEN",
-    "title": "Jacchia77 (U.S Standard Atmosphere 1962) very likely broken (and untested)",
-    "url": "https://github.com/poliastro/poliastro/issues/1562"
-  },
-  {
-    "state": "OPEN",
     "title": "Ability to retrieve mean elements of any pair of bodies",
     "url": "https://github.com/poliastro/poliastro/issues/1558"
   },

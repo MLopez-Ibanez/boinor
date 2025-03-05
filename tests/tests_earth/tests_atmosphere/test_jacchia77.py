@@ -265,6 +265,20 @@ def test_density(z):
     assert_quantity_allclose(rho, expected_rho, rtol=1e-2)
 
 
+@pytest.mark.parametrize("z", jacchia77_solutions.keys())
+def test_H_correction(z):
+    Jacchia77(1000 * u.K)._H_correction(100)
+    # TODO: at the moment it is only checked whether the call does work (it didn't before)
+    #       later one has to check the results as well
+
+
+@pytest.mark.parametrize("z", jacchia77_solutions.keys())
+def test_O_and_O2_correction(z):
+    Jacchia77(1000 * u.K)._O_and_O2_correction(100)
+    # TODO: at the moment it is only checked whether the call does work (it didn't before)
+    #       later one has to check the results as well
+
+
 def test_outside_upper_limit_coesa76():
     with pytest.raises(ValueError) as excinfo:
         alt = 2501.0 * u.km
