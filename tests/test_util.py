@@ -1,9 +1,10 @@
 from astropy import units as u
 from astropy.tests.helper import assert_quantity_allclose
 from astropy.time import Time
+import numpy as np
 import pytest
 
-from boinor.util import time_range
+from boinor.util import norm, time_range
 
 
 def test_time_range_spacing_num_values():
@@ -57,3 +58,29 @@ def test_time_range_raises_error_wrong_arguments():
 
     assert exception_message in excinfo_1.exconly()
     assert exception_message in excinfo_2.exconly()
+
+
+def test_norm():
+    # this is basically just a test for numpy/numba as the values
+    # are just forwarded to the corresponding function
+    # values taken from numpy example
+    a = np.arange(9 * u.one) - 4
+    av = a * u.one
+    b = np.array([[1, 2, 3], [-1, 1, 4]])
+    bv = b * u.one
+
+    expected_norm = 7.745966692414834
+    expected_norm_b0 = [1.41421356, 2.23606798, 5.0]
+    expected_norm_b1 = [3.74165739, 4.24264069]
+
+    norm_a = norm(av)
+    assert_quantity_allclose(norm_a, expected_norm, atol=1e-10)
+
+    norm_a = norm(av, axis=0)
+    assert_quantity_allclose(norm_a, expected_norm, atol=1e-10)
+
+    norm_b = norm(bv, axis=0)
+    assert_quantity_allclose(norm_b, expected_norm_b0, atol=1e-10)
+
+    norm_b = norm(bv, axis=1)
+    assert_quantity_allclose(norm_b, expected_norm_b1, atol=1e-10)

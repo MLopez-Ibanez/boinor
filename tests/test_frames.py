@@ -1,5 +1,8 @@
 from astropy import units as u
-from astropy.coordinates import CartesianRepresentation, get_body_barycentric
+from astropy.coordinates import (
+    CartesianRepresentation,
+    get_body_barycentric,
+)
 from astropy.tests.helper import assert_quantity_allclose
 from astropy.time import Time
 import numpy as np
@@ -19,6 +22,7 @@ from boinor.bodies import (
 )
 from boinor.constants import J2000
 from boinor.frames.ecliptic import GeocentricSolarEcliptic
+from boinor.frames.enums import Planes
 from boinor.frames.equatorial import (
     GCRS,
     HCRS,
@@ -42,7 +46,9 @@ from boinor.frames.fixed import (
     SunFixed,
     UranusFixed,
     VenusFixed,
+    _PlanetaryFixed,
 )
+from boinor.frames.util import get_frame
 
 
 @pytest.mark.parametrize(
@@ -315,3 +321,48 @@ def test_fixed_frame_calculation_gives_expected_result(
     assert_quantity_allclose(
         fixed_position.rot_elements_at_epoch(), radecW, atol=1e-7 * u.deg
     )
+
+
+# the NotImplementedError raises only for the Sun, but maybe we want to check something different later
+@pytest.mark.parametrize(
+    "body, frame",
+    [
+        (Sun, HCRS),
+    ],
+)
+def test_get_frame(body, frame):
+    with pytest.raises(NotImplementedError) as excinfo:
+        get_frame(body, Planes.BODY_FIXED)
+    assert "NotImplementedError: A frame with plane" in excinfo.exconly()
+
+
+def test_planetary_fixed():
+    with pytest.raises(NotImplementedError) as excinfo:
+        _PlanetaryFixed._rot_elements_at_epoch(J2000, 123)
+    assert "NotImplementedError" in excinfo.exconly()
+
+
+# these are not the correct equatorial_coordinates that are needed
+# (one with .body are needed)
+#    equatorial_coordinates = CartesianRepresentation(
+#        [
+#            (-1.40892271e08, 45067626.83900666, 19543510.68386639),
+#            (-1.4925067e08, 9130104.71634121, 3964948.59999307),
+#            (-1.46952333e08, -27413113.24215863, -11875983.21773582),
+#        ]
+#        * u.km,
+#        xyz_axis=1,
+#        differentials=CartesianDifferential(
+#            [
+#                (-10.14262131, -25.96929533, -11.25810932),
+#                (-2.28639444, -27.3906416, -11.87218591),
+#                (5.67814544, -26.84316701, -11.63720607),
+#            ]
+#            * (u.km / u.s),
+#            xyz_axis=1,
+#        ),
+#    )
+#
+#    with pytest.raises(ValueError) as excinfo:
+#        fr=_PlanetaryFixed.from_equatorial(equatorial_coordinates, VenusFixed)
+#    assert "Fixed and equatorial coordinates" in excinfo.exconly()
