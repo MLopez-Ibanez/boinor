@@ -91,10 +91,9 @@ def _get_index(x, x_levels):
     for i, value in enumerate(x_levels):
         if i < len(x_levels) and value < x:
             continue
-        elif x == value:
+        if x == value:
             return i
-        else:
-            return i - 1
+        return i - 1
 
 
 @jit
