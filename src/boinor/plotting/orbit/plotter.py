@@ -161,12 +161,12 @@ class OrbitPlotter:
 
             if not np.allclose([norm(v) for v in (p_vec, q_vec, w_vec)], 1):
                 raise ValueError("Vectors must be unit.")
-            elif not np.allclose(
+            if not np.allclose(
                 [p_vec @ q_vec, q_vec @ w_vec, w_vec @ p_vec], 0
             ):
                 raise ValueError("Vectors must be mutually orthogonal.")
-            else:
-                self._frame = p_vec, q_vec, w_vec
+
+            self._frame = p_vec, q_vec, w_vec
 
             if self._trajectories:
                 self._redraw()

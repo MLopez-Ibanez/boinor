@@ -236,8 +236,8 @@ class GroundtrackPlotter:
             raise ValueError(
                 f"Satellite should be orbiting Earth, not {orb.attractor}."
             )
-        else:
-            t_deltas = t_span - orb.epoch
+
+        t_deltas = t_span - orb.epoch
 
         # Ensure same line and marker color unless user specifies
         for style in [line_style, marker]:

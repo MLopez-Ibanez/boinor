@@ -235,7 +235,7 @@ class Maneuver:
             raise NotImplementedError(
                 f"The correction maneuver is not yet supported for {orbit.attractor}"
             )
-        elif orbit.ecc > 0.001:
+        if orbit.ecc > 0.001:
             raise NotImplementedError(
                 f"The correction maneuver is not yet supported with {orbit.ecc},it should be less than or equal to 0.001"
             )

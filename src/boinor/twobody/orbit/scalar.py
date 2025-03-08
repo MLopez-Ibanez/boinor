@@ -249,16 +249,16 @@ class Orbit(OrbitCreationMixin):
             raise ValueError(
                 "Orbit is out of new attractor's SOI. If required, use 'force=True'."
             )
-        elif self.ecc < 1.0 and not force:
+        if self.ecc < 1.0 and not force:
             raise ValueError(
                 "Orbit will never leave the SOI of its current attractor"
             )
-        else:
-            warn(
-                "Leaving the SOI of the current attractor",
-                PatchedConicsWarning,
-                stacklevel=2,
-            )
+
+        warn(
+            "Leaving the SOI of the current attractor",
+            PatchedConicsWarning,
+            stacklevel=2,
+        )
 
         new_frame = get_frame(new_attractor, self.plane, obstime=self.epoch)
         coords = self.get_frame().realize_frame(
@@ -434,11 +434,11 @@ class Orbit(OrbitCreationMixin):
             raise ValueError(
                 "Can not use an parabolic/hyperbolic propagator for elliptical/circular orbits."
             )
-        elif self.ecc == 1.0 and not (method.kind & PropagatorKind.PARABOLIC):
+        if self.ecc == 1.0 and not (method.kind & PropagatorKind.PARABOLIC):
             raise ValueError(
                 "Can not use an elliptic/hyperbolic propagator for parabolic orbits."
             )
-        elif self.ecc > 1.0 and not (method.kind & PropagatorKind.HYPERBOLIC):
+        if self.ecc > 1.0 and not (method.kind & PropagatorKind.HYPERBOLIC):
             raise ValueError(
                 "Can not use an elliptic/parabolic propagator for hyperbolic orbits."
             )
@@ -500,10 +500,10 @@ class Orbit(OrbitCreationMixin):
         if time_of_flight < 0:
             if self.ecc >= 1:
                 raise ValueError(f"True anomaly {value:.2f} not reachable")
-            else:
-                # For a closed orbit, instead of moving backwards
-                # we need to do another revolution
-                time_of_flight = self.period + time_of_flight
+
+            # For a closed orbit, instead of moving backwards
+            # we need to do another revolution
+            time_of_flight = self.period + time_of_flight
 
         return self.from_classical(
             attractor=self.attractor,
