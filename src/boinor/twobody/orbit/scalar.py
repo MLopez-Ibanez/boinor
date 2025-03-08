@@ -644,6 +644,7 @@ class Orbit(OrbitCreationMixin):
         # Select the best backend depending if it is an interactive or batch
         # session
         if backend is None:
+            is_interactive = False  # set default value here
             try:
                 shell = get_ipython().__class__.__name__
                 if shell == "ZMQInteractiveShell":
