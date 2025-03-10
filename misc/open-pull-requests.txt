@@ -18,9 +18,6 @@ Strip units within states
 Enable faster parallel testing
 #1556 opened Jul 23, 2022 by s-m-e
 2
-Add debugging information to OMM notebook
-#1539 opened Jul 16, 2022 by astrojuanlu
-1
 [DO NOT MERGE YET] State & orbit array API (iterative implementation)
 #1492 opened Mar 18, 2022 by s-m-e • Draft
 3
