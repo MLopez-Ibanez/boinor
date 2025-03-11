@@ -33,6 +33,12 @@ class SystemChars:
         self._mu = mu
         self._lstar = lstar
         self._tstar = tstar
+        self._L_ND = u.def_unit("dist_nd", u.one)
+        self._V_ND = u.def_unit("vel_nd", u.one)
+        self._T_ND = u.def_unit("time_nd", u.one)
+        u.add_enabled_units("dist_nd")
+        u.add_enabled_units("vel_nd")
+        u.add_enabled_units("time_nd")
 
     @classmethod
     def from_primaries(cls, p1, p2):
@@ -112,3 +118,18 @@ class SystemChars:
     def tstar(self):
         """Characterisitc time of P1-P2 system."""
         return self._tstar
+
+    @property
+    def L_ND(self):
+        """Non-dimensional length unit of P1-P2 system"""
+        return self._L_ND
+
+    @property
+    def V_ND(self):
+        """Non-dimensional velocity unit of P1-P2 system"""
+        return self._V_ND
+
+    @property
+    def T_ND(self):
+        """Non-dimensional time unit of P1-P2 system"""
+        return self._T_ND
