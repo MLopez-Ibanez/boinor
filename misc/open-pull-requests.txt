@@ -8,10 +8,6 @@ MAINT: update pre-commit hooks
 CI: add release workflow
 #1627 opened May 7, 2023 by jorgepiloto • Draft
 1
-1
-adding libration point calculation using newton raphson method
-#1573 opened Aug 27, 2022 by DhruvJ22
-3
 Strip units within states
 #1560 opened Jul 25, 2022 by s-m-e
 6
