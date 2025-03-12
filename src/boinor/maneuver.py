@@ -1,5 +1,6 @@
 """Orbital maneuvers."""
 from astropy import units as u
+import numpy as np
 
 from boinor.core.maneuver import (
     bielliptic as bielliptic_fast,
@@ -180,6 +181,8 @@ class Maneuver:
 
         # Time of flight is solved by subtracting both orbit epochs
         tof = orbit_f.epoch - orbit_i.epoch
+        assert tof > 0, f"Time of flight={tof} must be positive"
+
         if tof.to_value(u.s) < 0:
             raise ValueError(
                 "Epoch of initial orbit greater than epoch of final orbit, "
@@ -195,14 +198,24 @@ class Maneuver:
         )
 
     def get_total_time(self):
-        """Returns total time of the maneuver."""
+        """Returns total time of the maneuver (s)."""
         total_time = sum(self._dts, 0 * u.s)
         return total_time
 
     def get_total_cost(self):
-        """Returns total cost of the maneuver."""
+        """Returns total cost of the maneuver (km / s)."""
         dvs = [norm(dv) for dv in self._dvs]
-        return sum(dvs, 0 * u.km / u.s)
+        # original: return sum(dvs, 0 * u.km / u.s)
+
+        # todo: use only one way to calculate this
+        tc = sum(dvs, 0 * u.km / u.s)
+        tc2 = (
+            np.linalg.norm(self._dvs.to_value(u.km / u.s), axis=1).sum()
+            * u.km
+            / u.s
+        )
+        assert np.allclose(tc.value, tc2.value)
+        return tc2
 
     @classmethod
     @u.quantity_input(max_delta_r=u.km)
