@@ -58,6 +58,23 @@ class OrbitCreationMixin:
         ss = RVState(attractor, (r, v), plane)
         return cls(ss, epoch)
 
+    @u.quantity_input(v=u.m / u.s)
+    def apply_impulse(self, v):
+        """Apply impulse to `Orbit`.
+        Parameters
+        ----------
+        v : ~astropy.units.Quantity
+            Velocity vector.
+        epoch : ~astropy.time.Time, optional
+            Epoch, default to J2000.
+        plane : ~poliastro.frames.Planes
+            Fundamental plane of the frame.
+        """
+        if v.ndim != 1:
+            raise ValueError(f"Vectors must have dimension 1, got {v.ndim}")
+
+        self._state = RVState(self.attractor, self.r, self.v + v, self.plane)
+
     @classmethod
     def from_coords(cls, attractor, coord, plane=Planes.EARTH_EQUATOR):
         """Creates an `Orbit` from an attractor and astropy `SkyCoord`
