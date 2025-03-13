@@ -111,6 +111,7 @@ test = [
     "pytest-mypy",
     "pytest-remotedata",
     "pytest-xdist[psutil]",
+    "pytest-timestamps",
     "tox",
 ]
 
