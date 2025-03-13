@@ -1,6 +1,5 @@
 """Orbital maneuvers."""
 from astropy import units as u
-import numpy as np
 
 from boinor.core.maneuver import (
     bielliptic as bielliptic_fast,
@@ -181,7 +180,8 @@ class Maneuver:
 
         # Time of flight is solved by subtracting both orbit epochs
         tof = orbit_f.epoch - orbit_i.epoch
-        assert tof > 0, f"Time of flight={tof} must be positive"
+        # todo: this assert happens during test_lambert_tof_exception()
+        # assert tof > 0, f"Time of flight={tof} must be positive"
 
         if tof.to_value(u.s) < 0:
             raise ValueError(
@@ -206,16 +206,18 @@ class Maneuver:
         """Returns total cost of the maneuver (km / s)."""
         dvs = [norm(dv) for dv in self._dvs]
         # original: return sum(dvs, 0 * u.km / u.s)
+        # todo use the other calculation (.to_value () fails)
+        return sum(dvs, 0 * u.km / u.s)
 
-        # todo: use only one way to calculate this
-        tc = sum(dvs, 0 * u.km / u.s)
-        tc2 = (
-            np.linalg.norm(self._dvs.to_value(u.km / u.s), axis=1).sum()
-            * u.km
-            / u.s
-        )
-        assert np.allclose(tc.value, tc2.value)
-        return tc2
+        # # todo: use only one way to calculate this
+        # tc = sum(dvs, 0 * u.km / u.s)
+        # tc2 = (
+        #     np.linalg.norm(self._dvs.to_value(u.km / u.s), axis=1).sum()
+        #     * u.km
+        #     / u.s
+        # )
+        # assert np.allclose(tc.value, tc2.value)
+        # return tc2
 
     @classmethod
     @u.quantity_input(max_delta_r=u.km)
