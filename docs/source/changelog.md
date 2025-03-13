@@ -30,6 +30,9 @@ The code coverage increased from 91.45% to 91.67%.
 - no more pylint warning for super init not called on mixin class ({github}`poliastro pull request #1554 <poliastro/poliastro#1554>`)
 - add argument to PorkchopPlotter.porkchop() to not draw plot ({github}`poliastro pull request #1589 <poliastro/poliastro#1589>`)
   the bug was not solved but the suggestion to unify the user experience with the PorkcopPlotter() has been implemented
+- adding libration point calculation using newton raphson method ({github}`poliastro issue #1573 <poliastro/poliastro#1573>`)
+- enable faster parallel testing ({github}`poliastro issue #1556 <poliastro/poliastro#1556>`)
+- all PRs from poliastro are either merged, are not finished or are to old to cleanly apply
 
 ### Contributors
 
