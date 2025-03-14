@@ -23,6 +23,7 @@ The code coverage increased from 91.45% to 91.67%.
 - unable to install poliastro through spyder ({github}`poliastro issue #1604 <poliastro/poliastro#1604>`)
 - Jacchia77 (U.S Standard Atmosphere 1962) very likely broken (and untested) ({github}`poliastro issue #1562 <poliastro/poliastro#1562>`)
   This bug is not yet completely fixed, see ({github}`boinor issue #7 <boinor/boinor#7>`)
+- update matplotlib.py to use .get_next_color ({github}`hapsira issue #15 <pleiszenburg/hapsira#15>`)
 
 ### Pull requests
 
@@ -42,7 +43,8 @@ release, with a + sign indicating first contribution.
 - Thorsten Alteholz
 - @MLopez-Ibanez
 - @s-m-e
-
+- @mtryan83
+- @DhruvJ22
 
 ## boinor 0.18.6
 
