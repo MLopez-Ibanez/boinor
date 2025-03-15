@@ -551,6 +551,6 @@ extractor.add_orbit(iss, label_text="ISS")
 
 Finaly, generate the CZML file by calling `extractor.packets`.
 There is more information in
-[this sample Cesium application](https://github.com/boinor/cesium-app/blob/master/README.md).
+[this sample Cesium application](https://github.com/poliastro/cesium-app/blob/master/README.md).
 
 *Per Python ad astra* ;)
