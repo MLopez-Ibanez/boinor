@@ -261,11 +261,6 @@
   },
   {
     "state": "OPEN",
-    "title": "Consider checking for dead code in CI?",
-    "url": "https://github.com/poliastro/poliastro/issues/1312"
-  },
-  {
-    "state": "OPEN",
     "title": "Using a general LOS for adding an event detector and refactoring radiation pressure?",
     "url": "https://github.com/poliastro/poliastro/issues/1284"
   },

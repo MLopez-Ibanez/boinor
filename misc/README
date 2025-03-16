@@ -1,1 +1,9 @@
 # pylint: disable=duplicate-code   <-- does not work with pylint in Bookworm
+
+vulture src/boinor complains about Phobos and Deimos; some warnings should be avoided
+
+interrogate src/boinor     <-- just shows result
+interrogate -v src/boinor  <-- shows files to improve
+interrogate -vv src/boinor <-- shows lines to improve
+
+interrogate --generate-badge src/boinor

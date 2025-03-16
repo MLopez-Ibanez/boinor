@@ -102,6 +102,7 @@ test = [
     "coverage",
     "hypothesis",
     "import-linter[toml]",
+    "interrogate",
     "mypy>=0.740",
     "pre-commit",
     "pytest>=3.2",
@@ -113,6 +114,7 @@ test = [
     "pytest-xdist[psutil]",
     "pytest-timestamps",
     "tox",
+    "vulture",
 ]
 
 [tool.flit.sdist]
@@ -193,3 +195,33 @@ python_files ="test_*.py"
 doctest_plus = false
 addopts = ["--strict-markers"]
 markers = ["slow", "remote_data", "filterwarnings", "mpl_image_compare"]
+
+[tool.interrogate]
+ignore-init-method = false
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = false
+ignore-setters = false
+ignore-overloaded-functions = false
+# set small goals :-) (org: 80)
+fail-under = 50
+exclude = ["setup.py", "docs", "build"]
+# example regex
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+ext = []
+# possible values: sphinx (default), google
+style = "sphinx"
+# possible values: 0 (minimal output), 1 (-v), 2 (-vv)
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true
+omit-covered-files = false
+# output file logation
+generate-badge = "."
+badge-format = "svg"
