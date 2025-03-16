@@ -211,11 +211,6 @@
   },
   {
     "state": "OPEN",
-    "title": "Fix Codecov",
-    "url": "https://github.com/poliastro/poliastro/issues/1402"
-  },
-  {
-    "state": "OPEN",
     "title": "More dynamic maneuvers",
     "url": "https://github.com/poliastro/poliastro/issues/1396"
   },
