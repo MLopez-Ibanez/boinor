@@ -15,7 +15,7 @@
 [![docs_badge]](https://readthedocs.org/projects/boinor/badge/?version=latest)
 [![coverage_badge]](https://codecov.io/github/boinor/boinor?branch=main) 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12809725.svg)](https://doi.org/10.5281/zenodo.12809725)
-[![FAIR](https://cdnstatic.imctransfer.com/static_01/137000/137762/preview_320.mp4)
+[![FAIR](https://cdnstatic.imctransfer.com/static_01/137000/137762/preview_320.mp4)]
 
 <!--
 [![backers_badge]](https://opencollective.com/boinor/) 
