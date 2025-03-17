@@ -1,3 +1,6 @@
+"""get ephemerides from different sources
+   at the moment only data from SBDB can be retrieved
+"""
 from astropy import units as u
 from astropy.time import Time
 from astroquery.jplsbdb import SBDB
@@ -17,6 +20,7 @@ from boinor.twobody.orbit import Orbit
 
 
 def orbit_from_sbdb(name, **kwargs):
+    """read orbit data from SBDB (Small-Body DataBase"""
     obj = SBDB.query(name, full_precision=True, **kwargs)
 
     if "count" in obj:
