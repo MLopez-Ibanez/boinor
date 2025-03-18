@@ -4,7 +4,12 @@ import numpy as np
 import pytest
 
 from boinor.bodies import Earth, Sun
-from boinor.twobody.states import ClassicalState, RVState
+from boinor.twobody.states import (
+    BaseState,
+    ClassicalState,
+    ModifiedEquinoctialState,
+    RVState,
+)
 
 
 def test_state_has_attractor_given_in_constructor():
@@ -81,3 +86,32 @@ def test_coe_to_mee_raises_singularity_error_orbit_equatorial_and_retrograde():
         "Cannot compute modified equinoctial set for 180 degrees orbit inclination due to `h` and `k` singularity."
         in excinfo.exconly()
     )
+
+
+def test_state_methods():
+    _d = 1.0 * u.AU  # distance
+    _n = 0.5 * u.one  # dimensionless value
+    _a = 1.0 * u.deg  # angle
+
+    bs = BaseState(Sun, (_d, _n, _a, _a, _a, _a), None)
+    mes = ModifiedEquinoctialState(Sun, (_d, _n, _a, _a, _a, _a), None)
+
+    # these functions are not and should not be implemented in the BaseState()
+    with pytest.raises(NotImplementedError, match=""):
+        bs.to_value()
+
+    with pytest.raises(NotImplementedError, match=""):
+        bs.to_vectors()
+
+    with pytest.raises(NotImplementedError, match=""):
+        bs.to_classical()
+
+    with pytest.raises(NotImplementedError, match=""):
+        bs.to_equinoctial()
+
+    assert_quantity_allclose(_d, mes.p)
+    assert_quantity_allclose(_n, mes.f)
+    assert_quantity_allclose(_a, mes.g)
+    assert_quantity_allclose(_a, mes.h)
+    assert_quantity_allclose(_a, mes.k)
+    assert_quantity_allclose(_a, mes.L)
