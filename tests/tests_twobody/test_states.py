@@ -115,3 +115,44 @@ def test_state_methods():
     assert_quantity_allclose(_a, mes.h)
     assert_quantity_allclose(_a, mes.k)
     assert_quantity_allclose(_a, mes.L)
+
+    expected_res = (
+        149597870.7,
+        0.5,
+        0.017453292519943295,
+        0.017453292519943295,
+        0.017453292519943295,
+        0.017453292519943295,
+    )
+    expected_res_from_classical = (
+        1.495979e08,
+        5.003045e-01,
+        4.935534e-02,
+        7.853982e-01,
+        5.532680e00,
+        6.265746e00,
+    )
+    expected_res_from_vectors = [
+        [9.964189e07, 1.799942e06, -3.417410e06],
+        [-3.669335e-07, 1.619021e-05, 5.783057e-07],
+    ]
+    res = mes.to_value()
+    assert_quantity_allclose(res, expected_res)
+
+    res_from_classical = mes.to_classical()
+    value_res_from_classical = res_from_classical.to_value()
+    assert_quantity_allclose(
+        value_res_from_classical, expected_res_from_classical, rtol=1e-6
+    )
+
+    res_from_equinoctial = res_from_classical.to_equinoctial()
+    res_from_equinoctial.to_value()
+    assert_quantity_allclose(
+        value_res_from_classical, expected_res_from_classical, rtol=1e-6
+    )
+
+    res_from_vectors = mes.to_vectors()
+    value_res_from_vectors = res_from_vectors.to_value()
+    assert_quantity_allclose(
+        value_res_from_vectors, expected_res_from_vectors, rtol=1e-6
+    )
