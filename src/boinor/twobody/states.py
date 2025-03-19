@@ -191,7 +191,7 @@ class ClassicalState(BaseState):
             self.attractor,
             (
                 p << u.km,
-                f << u.rad,
+                f << u.one,
                 g << u.rad,
                 h << u.rad,
                 k << u.rad,
@@ -307,7 +307,7 @@ class ModifiedEquinoctialState(BaseState):
     def to_value(self):
         return (
             self.p.to_value(u.km),
-            self.f.to_value(u.rad),
+            self.f.to_value(u.one),
             self.g.to_value(u.rad),
             self.h.to_value(u.rad),
             self.k.to_value(u.rad),
