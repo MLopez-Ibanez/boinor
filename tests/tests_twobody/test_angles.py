@@ -7,13 +7,17 @@ import pytest
 from boinor.bodies import Earth
 from boinor.core.elements import coe2mee, coe2rv, mee2coe, rv2coe
 from boinor.twobody.angles import (
+    D_to_M,
+    D_to_nu,
     E_to_M,
     E_to_nu,
     F_to_M,
     F_to_nu,
+    M_to_D,
     M_to_E,
     M_to_F,
     fp_angle,
+    nu_to_D,
     nu_to_E,
     nu_to_F,
 )
@@ -242,3 +246,21 @@ def test_convert_coe_and_rv_circular_equatorial(circular_equatorial):
     k, expected_res = circular_equatorial
     res = rv2coe(k, *coe2rv(k, *expected_res))
     assert_allclose(res, expected_res, atol=1e-8)
+
+
+def test_convert_values():
+    D = 0.5 * u.rad
+    expected_nu = 0.9272952180016122 * u.rad
+    nu = D_to_nu(D)
+    assert_allclose(nu, expected_nu, atol=1e-8)
+
+    new_D = nu_to_D(nu)
+    assert_allclose(new_D, D, atol=1e-8)
+
+    M = 0.5 * u.rad
+    expected_D = 0.46622052391077345 * u.rad
+    D = M_to_D(M)
+    assert_allclose(D, expected_D, atol=1e-8)
+
+    new_M = D_to_M(D)
+    assert_allclose(new_M, M, atol=1e-8)
