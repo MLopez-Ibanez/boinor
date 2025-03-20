@@ -50,6 +50,7 @@ from boinor.frames.util import get_frame
 from boinor.plotting.orbit.backends import DEFAULT_ORBIT_PLOTTER_BACKENDS
 from boinor.twobody.angles import E_to_M, nu_to_E
 from boinor.twobody.orbit import Orbit
+from boinor.twobody.propagation.enums import PropagatorKind
 from boinor.twobody.sampling import TrueAnomalyBounds
 from boinor.warnings import PatchedConicsWarning
 
@@ -1373,3 +1374,131 @@ def test_orbit_elevation_works_for_only_earth():
         "Elevation implementation is currently only supported for orbits having Earth as the attractor."
         in excinfo.exconly()
     )
+
+
+class TestDummyPropagatorHyperbolic:
+    r"""Propagates only used for testing."""
+
+    kind = PropagatorKind.HYPERBOLIC
+
+    def propagate(self, state, tof):
+        print("E: we should not be here: HYPERBOLIC")
+        return state.to_classical()
+
+    def propagate_many(self, state, tofs):
+        print("E: we should not be here either: HYPERBOLIC")
+        return (0.5 * u.km, 1.0 * (u.km / u.s))
+
+
+class TestDummyPropagatorParabolic:
+    r"""Propagates only used for testing."""
+
+    kind = PropagatorKind.PARABOLIC
+
+    def propagate(self, state, tof):
+        print("E: we should not be here: PARABOLIC")
+        return state.to_classical()
+
+    def propagate_many(self, state, tofs):
+        print("E: we should not be here either: PARABOLIC")
+        return (0.5 * u.km, 1.0 * (u.km / u.s))
+
+
+class TestDummyPropagatorElliptic:
+    r"""Propagates only used for testing."""
+
+    kind = PropagatorKind.ELLIPTIC
+
+    def propagate(self, state, tof):
+        print("E: we should not be here: ELLIPTIC")
+        return state.to_classical()
+
+    def propagate_many(self, state, tofs):
+        print("E: we should not be here either: ELLIPTIC")
+        return (0.5 * u.km, 1.0 * (u.km / u.s))
+
+
+def test_orbit_object():
+    r = [-2032.4, 4591.2, -4544.8] << u.km
+    v = [100, 50, 100] << u.km / u.s
+    epoch = Time("2022-01-01")  # Not relevant.
+    body = Mars  # Body which is not Earth.
+    orbit = Orbit.from_vectors(body, r, v, epoch)
+
+    with pytest.raises(NotImplementedError, match=""):
+        pass
+
+    with pytest.raises(NotImplementedError, match=""):
+        pass
+
+    with pytest.raises(NotImplementedError, match=""):
+        pass
+
+    with pytest.raises(NotImplementedError, match=""):
+        pass
+
+    expected_L = 6.494977004500326 * u.rad
+    L = orbit.L
+    assert_quantity_allclose(L, expected_L)
+
+    expected_n = 78.73646041349888 * u.rad / u.s
+    n = orbit.n
+    assert_quantity_allclose(n, expected_n)
+
+    # new Orbit object
+    r = [1e09, -4e09, -1e09] * u.km
+    v = [5e00, -1e01, -4e00] * u.km / u.s
+
+    ss = Orbit.from_vectors(Sun, r, v, plane=Planes.EARTH_ECLIPTIC)
+
+    arr = np.array([1, 2, 3]) * u.h
+    with pytest.raises(
+        ValueError,
+        match="propagate only accepts scalar values for time of flight",
+    ):
+        ss.propagate(arr)
+
+    _d = 1.0 * u.AU  # distance
+    _eccElliptic = 0.1 * u.one  # dimensionless value
+    _eccParabolic = 1.0 * u.one  # dimensionless value
+    _eccHyperbolic = 1.5 * u.one  # dimensionless value
+    _a = 1.0 * u.deg  # angle
+    out_angle = np.pi * u.rad
+
+    oc = Orbit.from_classical(
+        attractor=Sun,
+        a=_d,
+        ecc=_eccElliptic,
+        inc=_a,
+        raan=_a,
+        argp=_a,
+        nu=out_angle,
+    )
+    with pytest.raises(
+        ValueError,
+        match="Can not use an parabolic/hyperbolic propagator for elliptical/circular orbits.",
+    ):
+        oc.propagate(1.0 * u.h, method=TestDummyPropagatorHyperbolic())
+
+    oc = Orbit.from_classical(
+        attractor=Sun,
+        a=-_d,
+        ecc=_eccHyperbolic,
+        inc=_a,
+        raan=_a,
+        argp=_a,
+        nu=out_angle,
+    )
+    with pytest.raises(
+        ValueError,
+        match="Can not use an elliptic/parabolic propagator for hyperbolic orbits.",
+    ):
+        oc.propagate(1.0 * u.h, method=TestDummyPropagatorElliptic())
+
+
+# todo: test does not work due to check in other function
+#    oc=Orbit.from_classical(
+#            attractor=Sun, a=_d, ecc=_eccParabolic, inc=_a, raan=_a, argp=_a, nu=out_angle
+#        )
+#    with pytest.raises(ValueError, match="Can not use an parabolic/hyperbolic propagator for elliptical/circular orbits."):
+#       final_oc = oc.propagate(1.0 *u.h, method=TestDummyPropagatorHyperbolic())
