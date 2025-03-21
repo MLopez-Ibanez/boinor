@@ -376,14 +376,14 @@ def test_frozen_orbit_non_critical_inclination():
 def test_frozen_orbit_venus_special_case():
     with pytest.raises(NotImplementedError) as excinfo:
         Orbit.frozen(Venus, 1 * u.m)
-    assert excinfo.type == NotImplementedError
+    assert excinfo.type is NotImplementedError
     assert "This has not been implemented for Venus" in excinfo.exconly()
 
 
 def test_frozen_orbit_non_spherical_arguments():
     with pytest.raises(AttributeError) as excinfo:
         Orbit.frozen(Jupiter, 1 * u.m)
-    assert excinfo.type == AttributeError
+    assert excinfo.type is AttributeError
     assert (
         "Attractor Jupiter has not spherical harmonics implemented"
         in excinfo.exconly()
@@ -393,7 +393,7 @@ def test_frozen_orbit_non_spherical_arguments():
 def test_frozen_orbit_altitude():
     with pytest.raises(ValueError) as excinfo:
         Orbit.frozen(Earth, -1 * u.m)
-    assert excinfo.type == ValueError
+    assert excinfo.type is ValueError
     assert "Altitude of an orbit cannot be negative" in excinfo.exconly()
 
 
@@ -478,6 +478,14 @@ def test_orbit_plot_raises_no_error(Backend):
     v = [-3.457, 6.618, 2.533] * u.km / u.s
     ss = Orbit.from_vectors(Earth, r, v)
     ss.plot(backend=Backend())
+
+
+def test_orbit_plot_none():
+    # Data from Curtis, example 4.3
+    r = [-6_045, -3_490, 2_500] * u.km
+    v = [-3.457, 6.618, 2.533] * u.km / u.s
+    ss = Orbit.from_vectors(Earth, r, v)
+    ss.plot()  # plotting without backend should not raise an error
 
 
 @pytest.mark.parametrize(
@@ -655,7 +663,7 @@ def test_synchronous_orbit_pericenter_smaller_than_atractor_radius(
 ):
     with pytest.raises(ValueError) as excinfo:
         Orbit.synchronous(attractor=attractor, ecc=ecc)
-    assert excinfo.type == ValueError
+    assert excinfo.type is ValueError
     assert (
         "The orbit for the given parameters doesn't exist" in excinfo.exconly()
     )
@@ -1369,7 +1377,7 @@ def test_orbit_elevation_works_for_only_earth():
 
     with pytest.raises(NotImplementedError) as excinfo:
         orbit.elevation(lat, theta, h)
-    assert excinfo.type == NotImplementedError
+    assert excinfo.type is NotImplementedError
     assert (
         "Elevation implementation is currently only supported for orbits having Earth as the attractor."
         in excinfo.exconly()
@@ -1426,16 +1434,20 @@ def test_orbit_object():
     orbit = Orbit.from_vectors(body, r, v, epoch)
 
     with pytest.raises(NotImplementedError, match=""):
-        pass
+        f = orbit.f
+        assert f == f  # just needed to not tweak away some code
 
     with pytest.raises(NotImplementedError, match=""):
-        pass
+        g = orbit.g
+        assert g == g  # just needed to not tweak away some code
 
     with pytest.raises(NotImplementedError, match=""):
-        pass
+        h = orbit.h
+        assert h == h  # just needed to not tweak away some code
 
     with pytest.raises(NotImplementedError, match=""):
-        pass
+        k = orbit.k
+        assert k == k  # just needed to not tweak away some code
 
     expected_L = 6.494977004500326 * u.rad
     L = orbit.L
@@ -1502,3 +1514,16 @@ def test_orbit_object():
 #        )
 #    with pytest.raises(ValueError, match="Can not use an parabolic/hyperbolic propagator for elliptical/circular orbits."):
 #       final_oc = oc.propagate(1.0 *u.h, method=TestDummyPropagatorHyperbolic())
+
+
+def test_apply_impulse():
+    r = [-2032.4, 4591.2, -4544.8] << u.km
+    v = [100, 50, 100] << u.km / u.s
+    epoch = Time("2022-01-01")  # Not relevant.
+    body = Mars  # Body which is not Earth.
+    orbit = Orbit.from_vectors(body, r, v, epoch)
+
+    # Method fails if vapply.ndim is not 1 (0 in this case)
+    vapply = 30_000 * u.m / u.s
+    with pytest.raises(ValueError, match="Vectors must have dimension 1"):
+        orbit.apply_impulse(vapply)
