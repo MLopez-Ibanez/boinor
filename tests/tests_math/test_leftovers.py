@@ -28,5 +28,5 @@ def test_sinc_interp():
 
     with pytest.raises(ValueError) as excinfo:
         sinc_interp(x, y, u)
-    assert excinfo.type == ValueError
+    assert excinfo.type is ValueError
     assert excinfo.type is not None

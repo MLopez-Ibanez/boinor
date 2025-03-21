@@ -227,7 +227,7 @@ def test_correct_pericenter_J2_exception():
     max_delta_r = 30 * u.km
     with pytest.raises(NotImplementedError) as excinfo:
         Maneuver.correct_pericenter(ss0, max_delta_r)
-    assert excinfo.type == NotImplementedError
+    assert excinfo.type is NotImplementedError
     assert (
         str(excinfo.value)
         == f"The correction maneuver is not yet supported for {ss0.attractor}"
@@ -247,7 +247,7 @@ def test_correct_pericenter_ecc_exception():
     max_delta_r = 30 * u.km
     with pytest.raises(NotImplementedError) as excinfo:
         Maneuver.correct_pericenter(ss0, max_delta_r)
-    assert excinfo.type == NotImplementedError
+    assert excinfo.type is NotImplementedError
     assert (
         str(excinfo.value)
         == f"The correction maneuver is not yet supported with {ss0.ecc},it should be less than or equal to 0.001"
@@ -282,7 +282,7 @@ def test_lambert_tof_exception():
     )
     with pytest.raises(ValueError) as excinfo:
         Maneuver.lambert(orb_i, orb_f)
-    assert excinfo.type == ValueError
+    assert excinfo.type is ValueError
     assert (
         str(excinfo.value)
         == "Epoch of initial orbit greater than epoch of final orbit, causing a negative time of flight"
