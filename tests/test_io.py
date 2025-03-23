@@ -38,12 +38,43 @@ def patch_sbdb_getData(name, **kwargs):
         }
     if name == "test3":
         rc = {
-            "object": {"shortname": "test1", "neo": True, "moid": 0.334},
+            "object": {"shortname": "test3", "neo": True, "moid": 0.334},
             "orbit": {
                 "elements": {
                     "ma": 90.28032584,
                     "a": 1.0 * u.AU,
                     "e": 0.2,
+                    "i": 3.0 * u.deg,
+                    "om": 4.0 * u.deg,
+                    "w": 5.0 * u.deg,
+                },
+                "epoch": 1 * u.d,
+            },
+        }
+
+    if name == "test4":
+        rc = {
+            "object": {"shortname": "test4", "neo": True, "moid": 0.334},
+            "orbit": {
+                "elements": {
+                    "ma": 90.28032584 * u.deg,
+                    "a": 1.0 * u.AU,
+                    "e": 1.0,
+                    "i": 3.0 * u.deg,
+                    "om": 4.0 * u.deg,
+                    "w": 5.0 * u.deg,
+                },
+                "epoch": 1 * u.d,
+            },
+        }
+    if name == "test5":
+        rc = {
+            "object": {"shortname": "test5", "neo": True, "moid": 0.334},
+            "orbit": {
+                "elements": {
+                    "ma": 90.28032584 * u.deg,
+                    "a": -1.0 * u.AU,
+                    "e": 1.1,
                     "i": 3.0 * u.deg,
                     "om": 4.0 * u.deg,
                     "w": 5.0 * u.deg,
@@ -71,3 +102,12 @@ def test_orbit_from_sbdb():
     with pytest.raises(AttributeError) as exc3:
         orbit_from_sbdb("test3", **test_kwargs)
     assert "AttributeError" in exc3.exconly()
+
+
+# TODO: fix in from_classical() to use a different function for parabolic values
+#    # e=1; should not raise an exception
+#    orbit_from_sbdb("test4", **test_kwargs)
+
+# TODO: fix in from_classical() to use a different function for hyperbolic values
+#    # e=1.1; should not raise an exception
+#    orbit_from_sbdb("test5", **test_kwargs)
