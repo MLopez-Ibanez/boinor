@@ -87,7 +87,7 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a plotting backend class."
+            "This method is expected to be overridden by a plotting backend class."
         )
 
     def draw_marker(self, position, *, color, label, marker_symbol, size):
@@ -108,7 +108,7 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a plotting backend class."
+            "This method is expected to be overridden by a plotting backend class."
         )
 
     def draw_position(self, position, *, color, label, size):
@@ -132,7 +132,7 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a plotting backend class."
+            "This method is expected to be overridden by a plotting backend class."
         )
 
     def draw_impulse(self, position, *, color, label, size):
@@ -151,7 +151,7 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a plotting backend class."
+            "This method is expected to be overridden by a plotting backend class."
         )
 
     def draw_sphere(self, position, *, color, label, radius):
@@ -170,13 +170,13 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a plotting backend class."
+            "This method is expected to be overridden by a plotting backend class."
         )
 
     def undraw_attractor(self):
         """Remove the attractor from the scene."""
         raise NotImplementedError(
-            "This method is expected to be override by a plotting backend class."
+            "This method is expected to be overridden by a plotting backend class."
         )
 
     def draw_coordinates(self, coordinates, *, colors, label, size):
@@ -195,7 +195,7 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a specific plotting backend."
+            "This method is expected to be overridden by a specific plotting backend."
         )
 
     def draw_axes_labels_with_length_scale_units(self, length_scale_units):
@@ -208,19 +208,19 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a specific plotting backend."
+            "This method is expected to be overridden by a specific plotting backend."
         )
 
     def update_legend(self):
         """Update the legend of the scene."""
         raise NotImplementedError(
-            "This method is expected to be override by a specific plotting backend."
+            "This method is expected to be overridden by a specific plotting backend."
         )
 
     def resize_limits(self):
         """Resize the limits of the scene."""
         raise NotImplementedError(
-            "This method is expected to be override by a specific plotting backend."
+            "This method is expected to be overridden by a specific plotting backend."
         )
 
     def generate_labels(self, label, has_coordinates, has_position):
@@ -237,11 +237,11 @@ class OrbitPlotterBackend:
 
         """
         raise NotImplementedError(
-            "This method is expected to be override by a specific plotting backend."
+            "This method is expected to be overridden by a specific plotting backend."
         )
 
     def show(self):
         """Display the scene."""
         raise NotImplementedError(
-            "This method is expected to be override by a specific plotting backend."
+            "This method is expected to be overridden by a specific plotting backend."
         )
