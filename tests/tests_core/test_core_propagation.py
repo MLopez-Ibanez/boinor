@@ -1,5 +1,6 @@
 from astropy import units as u
 from astropy.tests.helper import assert_quantity_allclose
+import numpy as np
 import pytest
 
 from boinor.core.propagation import (
@@ -95,3 +96,14 @@ def test_farnocchia_stuff():
     expected_value = 0.5383066383929812
     value = nu_from_delta_t(0.4, ecc)
     assert_quantity_allclose(expected_value, value)
+
+
+def test_recseries_stuff():
+    np.ndarray([11, 12, 13]) * u.km
+    np.ndarray([21, 22, 23]) * u.km / u.s
+    3.4 * u.h
+
+
+# FIXME: what parameters need to be used here?
+#    value=recseries(k, r0, v0, tof)
+#    print("XXX value: ", value)
