@@ -1,6 +1,54 @@
+import plotly.graph_objects as go
 import pytest
 
 from boinor.plotting.orbit.backends._base import OrbitPlotterBackend
+from boinor.plotting.orbit.backends.plotly import (
+    BasePlotly,
+    Plotly2D,
+    Plotly3D,
+)
+
+
+class Dummy2D(BasePlotly):
+    def __init__(self, figure):
+        theme = "plotly_dark"
+
+        # Declare the layout and attach it to the figure
+        layout = go.Layout(
+            autosize=True,
+            xaxis=dict(constrain="domain"),
+            yaxis=dict(scaleanchor="x"),
+            template=theme,
+        )
+        super().__init__(figure, layout)
+
+
+def test_orbit_backends_plotly():
+    bp = Dummy2D(None)
+
+    with pytest.raises(
+        NotImplementedError,
+        match="This method is expected to be overridden by a plotting backend class.",
+    ):
+        _ = bp.draw_impulse(
+            1, color=2, label=3, size=4
+        )  # just dummy parameter and not needed in this function
+
+    x = (10.0, 11.1, 12.2)
+    y = (20.1, 21.2, 22.3)
+    z = (30.1, 31.2, 32.3)
+    p2d = Plotly2D()
+    v = p2d.draw_marker([x, y], color=2, label=None, marker_symbol="x", size=5)
+    assert v.x == x
+    assert v.y == y
+
+    p3d = Plotly3D()
+    v = p3d.draw_marker(
+        [x, y, z], color=2, label=None, marker_symbol="x", size=5
+    )
+    assert v.x == x
+    assert v.y == y
+    assert v.z == z
 
 
 def test_orbit_backends_base():
