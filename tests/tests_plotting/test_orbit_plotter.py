@@ -439,3 +439,45 @@ def test_plot_maneuver_using_matplotlib2D_backend():
     plotter.plot_maneuver(orb_i, man, label="Hohmann maneuver", color="red")
 
     return fig
+
+
+def test_plotter_methods_parameter():
+    fig, ax = plt.subplots()
+    backend = Matplotlib2D(ax=ax)
+    plotter = OrbitPlotter(backend=backend)
+    epochs = time.Time("2020-04-29 10:43", scale="tdb")
+    ephem = Ephem.from_body(Earth, epochs)
+
+    # Data from Vallado, example 6.1
+    alt_i = 191.34411 * u.km
+    alt_f = 35781.34857 * u.km
+    _a = 0 * u.deg
+    orb = Orbit.from_classical(
+        attractor=Earth,
+        a=Earth.R + alt_i,
+        ecc=0 * u.one,
+        inc=_a,
+        raan=_a,
+        argp=_a,
+        nu=_a,
+    )
+
+    # Create the maneuver
+    maneuver = Maneuver.hohmann(orb, Earth.R + alt_f)
+
+    orb._attractror = None
+    plotter.set_orbit_frame(orb)
+    with pytest.raises(
+        ValueError, match="An attractor must be set up first, please use"
+    ):
+        plotter.plot_ephem(ephem)
+
+    with pytest.raises(
+        ValueError, match="An attractor must be set up first, please use"
+    ):
+        plotter.plot_maneuver(orb, maneuver)
+
+    with pytest.raises(
+        AttributeError, match="View can only be in 3D backends."
+    ):
+        plotter.set_view(0.5 * u.rad, 0.5 * u.rad)
