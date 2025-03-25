@@ -107,6 +107,14 @@ jobs:
       - run: tox
       - run: python -m pip install codecov && codecov
 
+  tests314:
+    <<: *test-template
+    description: Tests - Python 3.14
+    docker:
+      - image: python:3.14
+    environment:
+      TOXENV: tests314
+
 
 workflows:
   version: 2
@@ -144,5 +152,8 @@ workflows:
           requires:
             - quality
       - tests313-coverage:
+          requires:
+            - quality
+      - tests314:
           requires:
             - quality
