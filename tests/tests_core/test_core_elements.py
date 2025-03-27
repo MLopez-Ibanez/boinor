@@ -6,7 +6,7 @@ from boinor.bodies import Earth
 
 # lots of functions are already checked somewhere else
 # unfortunately mee2rv is missing
-from boinor.core.elements import coe2mee, mee2rv, rv2coe
+from boinor.core.elements import coe2mee, coe2rv, mee2rv, rv2coe
 
 
 def test_conversions():
@@ -24,10 +24,16 @@ def test_conversions():
 
     r_rv, v_rv = mee2rv(p_mee, f_mee, g_mee, h_mee, k_mee, L_mee)
 
-    print("r:", r, " <-> ", r_rv)
-    print("v:", v, " <-> ", v_rv)
+    # print("r:", r, " <-> ", r_rv)
+    # print("v:", v, " <-> ", v_rv)
 
     assert_allclose(r, r_rv)
     # XXX this does not work, see #1
     # v_rv contains all NAN
-    # assert_allclose(v,v_rv)
+    # assert_allclose(v, v_rv)
+
+    r_new, v_new = coe2rv(
+        k, p_coe, ecc_coe, inc_coe, raan_coe, argp_coe, nu_coe
+    )
+    assert_allclose(r, r_new)
+    assert_allclose(v, v_new)
