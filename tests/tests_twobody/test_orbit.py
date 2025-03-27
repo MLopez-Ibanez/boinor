@@ -1527,3 +1527,7 @@ def test_apply_impulse():
     vapply = 30_000 * u.m / u.s
     with pytest.raises(ValueError, match="Vectors must have dimension 1"):
         orbit.apply_impulse(vapply)
+
+    # just checks whether it works without exception
+    # TODO: check whether self._state has some meaningfull values afterwards
+    orbit.apply_impulse(v)
