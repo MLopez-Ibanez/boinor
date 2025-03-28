@@ -2,7 +2,9 @@
 
 from collections import namedtuple
 import warnings
+from warnings import warn
 
+from astropy import time
 from astropy.coordinates import CartesianRepresentation
 import astropy.units as u
 import numpy as np
@@ -182,14 +184,11 @@ class OrbitPlotter:
             Epoch of current position.
 
         """
-        from warnings import warn
-
-        from astropy import time
 
         # HACK: avoid circular dependency with ``Body.plot()``
-        from boinor.bodies import Sun
-        from boinor.twobody import Orbit
-        from boinor.warnings import TimeScaleWarning
+        from boinor.bodies import Sun  # pylint: disable=C0415
+        from boinor.twobody import Orbit  # pylint: disable=C0415
+        from boinor.warnings import TimeScaleWarning  # pylint: disable=C0415
 
         if not epoch:
             epoch = time.Time.now().tdb

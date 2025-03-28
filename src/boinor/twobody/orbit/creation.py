@@ -6,6 +6,7 @@ import numpy as np
 from boinor.constants import J2000
 from boinor.frames import Planes
 from boinor.frames.util import get_frame
+from boinor.io import orbit_from_sbdb
 from boinor.twobody.elements import (
     get_eccentricity_critical_argp,
     get_eccentricity_critical_inc,
@@ -279,7 +280,6 @@ class OrbitCreationMixin:
         >>> apophis_orbit = Orbit.from_sbdb('apophis')  # doctest: +REMOTE_DATA
 
         """
-        from boinor.io import orbit_from_sbdb
 
         return orbit_from_sbdb(name, **kwargs)
 

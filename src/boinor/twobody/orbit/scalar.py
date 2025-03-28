@@ -12,6 +12,7 @@ import numpy as np
 
 from boinor.bodies import Earth
 from boinor.core.events import elevation_function as elevation_function_fast
+from boinor.ephem import Ephem
 from boinor.frames.util import get_frame
 from boinor.threebody.soi import laplace_radius
 from boinor.twobody.elements import eccentricity_vector, energy, t_p
@@ -523,7 +524,6 @@ class Orbit(OrbitCreationMixin):
         .. versionadded:: 0.17.0
 
         """
-        from boinor.ephem import Ephem
 
         coordinates, epochs = strategy.sample(self)
         return Ephem(coordinates, epochs, self.plane)
@@ -638,8 +638,15 @@ class Orbit(OrbitCreationMixin):
 
         """
         # HACK: avoid circular dependency
-        from boinor.plotting.orbit.backends import Matplotlib2D, Plotly2D
-        from boinor.plotting.orbit.plotter import OrbitPlotter
+        from boinor.plotting.orbit.backends import (
+            Matplotlib2D,
+            Plotly2D,
+        )
+
+        # pylint: disable=C0415
+        from boinor.plotting.orbit.plotter import (
+            OrbitPlotter,
+        )
 
         # Select the best backend depending if it is an interactive or batch
         # session

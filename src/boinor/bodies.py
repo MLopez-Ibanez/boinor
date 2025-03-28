@@ -154,7 +154,9 @@ class SolarSystemPlanet(Body):
         """
         # HACK: import here the OrbitPlotter to avoid a circular dependency
         # between bodies.py and misc.py
-        from boinor.plotting.orbit.plotter import OrbitPlotter
+        from boinor.plotting.orbit.plotter import (
+            OrbitPlotter,
+        )
 
         return OrbitPlotter(backend=backend, plane=plane).plot_body_orbit(
             self, epoch=epoch, label=label

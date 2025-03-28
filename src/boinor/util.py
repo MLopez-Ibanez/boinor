@@ -22,7 +22,7 @@ def norm(vec, axis=None):
     if axis is not None:
         # axis keyword argument is not yet supported by numba,
         # see https://github.com/numba/numba/issues/2558
-        from numpy.linalg import norm as norm_np
+        from numpy.linalg import norm as norm_np  # pylint: disable=C0415
 
         result = norm_np(vec.value, axis=axis)
     else:
