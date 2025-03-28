@@ -30,7 +30,8 @@ from boinor.bodies import (
     Uranus,
     Venus,
 )
-from boinor.constants import J2000, J2000_TDB
+from boinor.constants import J2000, J2000_TDB, GM_earth
+from boinor.core.elements import rv2coe
 from boinor.ephem import Ephem
 from boinor.examples import iss
 from boinor.frames.ecliptic import HeliocentricEclipticJ2000
@@ -478,6 +479,14 @@ def test_orbit_plot_raises_no_error(Backend):
     v = [-3.457, 6.618, 2.533] * u.km / u.s
     ss = Orbit.from_vectors(Earth, r, v)
     ss.plot(backend=Backend())
+
+
+def test_orbit_plot_raises_no_error_with_no_backend():
+    # Data from Curtis, example 4.3
+    r = [-6_045, -3_490, 2_500] * u.km
+    v = [-3.457, 6.618, 2.533] * u.km / u.s
+    ss = Orbit.from_vectors(Earth, r, v)
+    ss.plot(backend=None)
 
 
 def test_orbit_plot_none():
@@ -1531,3 +1540,23 @@ def test_apply_impulse():
     # just checks whether it works without exception
     # TODO: check whether self._state has some meaningfull values afterwards
     orbit.apply_impulse(v)
+
+
+def test_orbit_from_equinoctial():
+    r = [-2032.4, 4591.2, -4544.8] << u.km
+    v = [100, 50, 100] << u.km / u.s
+    Time("2022-01-01")  # Not relevant.
+
+    k = GM_earth.value
+    p, ecc, inc, raan, argp, nu = rv2coe(k, r, v)
+
+    # TODO: check whether this Orbit contains reasonable values
+    Orbit.from_equinoctial(
+        attractor=Earth,
+        p=p * u.km,
+        f=ecc,
+        g=inc * u.rad,
+        h=inc * u.rad,
+        k=argp * u.rad,
+        L=nu * u.rad,
+    )
