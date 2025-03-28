@@ -1,6 +1,7 @@
 from astropy import units as u
 from astropy.coordinates import (
     CartesianRepresentation,
+    UnitSphericalRepresentation,
     get_body_barycentric,
 )
 from astropy.tests.helper import assert_quantity_allclose
@@ -366,3 +367,24 @@ def test_planetary_fixed():
 #    with pytest.raises(ValueError) as excinfo:
 #        fr=_PlanetaryFixed.from_equatorial(equatorial_coordinates, VenusFixed)
 #    assert "Fixed and equatorial coordinates" in excinfo.exconly()
+
+
+@pytest.mark.parametrize(
+    "body, frame",
+    [
+        (Mercury, MercuryICRS),
+        (Venus, VenusICRS),
+        (Mars, MarsICRS),
+        (Jupiter, JupiterICRS),
+        (Saturn, SaturnICRS),
+        (Uranus, UranusICRS),
+        (Neptune, NeptuneICRS),
+    ],
+)
+def test_planetary_icrs_class(body, frame):
+    UnitSphericalRepresentation(0 * u.deg, 75 * u.deg)
+
+
+# WIP
+#    dummy=1
+#    to=frame.to_icrs(equatorial_coordinates, dummy)
