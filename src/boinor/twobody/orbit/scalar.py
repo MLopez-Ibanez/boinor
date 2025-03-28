@@ -638,7 +638,7 @@ class Orbit(OrbitCreationMixin):
 
         """
         # HACK: avoid circular dependency
-        from boinor.plotting.orbit.backends import (
+        from boinor.plotting.orbit.backends import (  # pylint: disable=C0415
             Matplotlib2D,
             Plotly2D,
         )
