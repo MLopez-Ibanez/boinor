@@ -18,7 +18,7 @@ from boinor.twobody.sampling import EpochsArray
 class GroundtrackPlotter:
     """Generates two-dimensional ground-track."""
 
-    def __init__(self, fig=None, color_palette=EARTH_PALETTE):
+    def __init__(self, fig=None, color_palette=None):
         """Initializes the ground-track.
 
         Parameters
@@ -29,6 +29,10 @@ class GroundtrackPlotter:
             A color palette for background map
 
         """
+
+        if color_palette is None:
+            color_palette = EARTH_PALETTE
+
         # Generate custom figure if required
         if not fig:
             self.fig = go.Figure(go.Scattergeo())
@@ -206,7 +210,9 @@ class GroundtrackPlotter:
 
         return trace
 
-    def plot(self, earth_orb, t_span, label, color, line_style={}, marker={}):
+    def plot(
+        self, earth_orb, t_span, label, color, line_style=None, marker=None
+    ):
         """Plots desired Earth satellite orbit for a given time span.
 
         Parameters
@@ -230,6 +236,12 @@ class GroundtrackPlotter:
             Output figure
 
         """
+
+        # do not use list or dictionary as default parameter
+        if line_style is None:
+            line_style = {}
+        if marker is None:
+            marker = {}
         # Retrieve basic parameters and check for proper attractor
         orb = earth_orb.orbit
         if orb.attractor != Earth:
