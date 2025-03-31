@@ -151,6 +151,8 @@ class BasePlotly(OrbitPlotterBackend):
         self.update_layout(self._layout)
         if not self.figure._in_batch_mode:
             return self.figure.show()
+        # XXX do all tests still work?
+        return None
 
     def generate_labels(self, label, has_coordinates, has_position):
         """Generate the labels for coordinates and position.
