@@ -44,7 +44,7 @@ values were used.
 """
 
 from astropy import units as u
-from astropy.io import ascii
+from astropy.io import ascii as ascii_ap
 from astropy.utils.data import get_pkg_data_filename
 import numpy as np
 
@@ -68,7 +68,7 @@ beta = 1.458e-6 * (u.kg / u.s / u.m / (u.K) ** 0.5)
 S = 110.4 * u.K
 
 # Reading layer parameters file
-coesa76_data = ascii.read(get_pkg_data_filename("data/coesa76.dat"))
+coesa76_data = ascii_ap.read(get_pkg_data_filename("data/coesa76.dat"))
 b_levels = coesa76_data["b"].data
 zb_levels = coesa76_data["Zb [km]"].data * u.km
 hb_levels = coesa76_data["Hb [km]"].data * u.km
@@ -77,8 +77,8 @@ Lb_levels = coesa76_data["Lb [K/km]"].data * u.K / u.km
 pb_levels = coesa76_data["pb [mbar]"].data * u.mbar
 
 # Reading pressure and density coefficients files
-p_data = ascii.read(get_pkg_data_filename("data/coesa76_p.dat"))
-rho_data = ascii.read(get_pkg_data_filename("data/coesa76_rho.dat"))
+p_data = ascii_ap.read(get_pkg_data_filename("data/coesa76_p.dat"))
+rho_data = ascii_ap.read(get_pkg_data_filename("data/coesa76_rho.dat"))
 
 # Zip coefficients for each altitude
 z_coeff = p_data["z [km]"].data * u.km

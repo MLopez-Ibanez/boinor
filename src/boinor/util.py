@@ -32,7 +32,7 @@ def norm(vec, axis=None):
 
 
 def time_range(
-    start, *, num_values=50, spacing=None, end=None, format=None, scale=None
+    start, *, num_values=50, spacing=None, end=None, trformat=None, scale=None
 ):
     """Generates range of astronomical times.
 
@@ -55,13 +55,13 @@ def time_range(
         Array of time values.
 
     """
-    start = Time(start, format=format, scale=scale)
+    start = Time(start, format=trformat, scale=scale)
 
     if spacing is not None and end is None:
         result = start + spacing * np.arange(0, num_values)
 
     elif end is not None and spacing is None:
-        end = Time(end, format=format, scale=scale)
+        end = Time(end, format=trformat, scale=scale)
         result = start + (end - start) * np.linspace(0, 1, num_values)
 
     else:

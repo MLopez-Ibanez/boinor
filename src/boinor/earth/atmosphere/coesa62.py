@@ -53,7 +53,7 @@ sunspot minimum and sunspot maximum.
 """
 
 from astropy import units as u
-from astropy.io import ascii
+from astropy.io import ascii as ascii_ap
 from astropy.units import imperial
 from astropy.utils.data import get_pkg_data_filename
 import numpy as np
@@ -79,7 +79,7 @@ alpha = 34.1632 * u.K / u.km
 
 # Reading layer parameters file
 coesa_file = get_pkg_data_filename("data/coesa62.dat")
-coesa62_data = ascii.read(coesa_file)
+coesa62_data = ascii_ap.read(coesa_file)
 b_levels = coesa62_data["b"].data
 zb_levels = coesa62_data["Zb [km]"].data * u.km
 hb_levels = coesa62_data["Hb [km]"].data * u.km
