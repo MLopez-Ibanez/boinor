@@ -82,6 +82,38 @@ def patch_sbdb_getData(name, **kwargs):
                 "epoch": 1 * u.d,
             },
         }
+    if name == "test6":
+        rc = {
+            "object": {"shortname": "test6", "neo": True, "moid": 0.334},
+            "orbit": {
+                "elements": {
+                    "ma": 90.28032584 * u.deg,
+                    "a": 1.0 * u.AU,
+                    "e": 0.0,
+                    "i": 3.0 * u.deg,
+                    "om": 4.0 * u.deg,
+                    "w": 5.0 * u.deg,
+                },
+                "epoch": 1 * u.d,
+            },
+        }
+    if name == "test7":
+        rc = {
+            "count": {"blub": "2"},
+            "list": {"name": {"a": "v", "b": "v", "c": "v"}},
+            "object": {"shortname": "test7", "neo": True, "moid": 0.334},
+            "orbit": {
+                "elements": {
+                    "ma": 90.28032584 * u.deg,
+                    "a": 1.0 * u.AU,
+                    "e": 0.0,
+                    "i": 3.0 * u.deg,
+                    "om": 4.0 * u.deg,
+                    "w": 5.0 * u.deg,
+                },
+                "epoch": 1 * u.d,
+            },
+        }
 
     return rc
 
@@ -103,11 +135,18 @@ def test_orbit_from_sbdb():
         orbit_from_sbdb("test3", **test_kwargs)
     assert "AttributeError" in exc3.exconly()
 
+    # e=1; no body in SBDB should have e=1, so this should raise an exception somewhere
+    with pytest.raises(
+        ValueError, match="For parabolic orbits use Orbit.parabolic instead"
+    ):
+        orbit_from_sbdb("test4", **test_kwargs)
 
-# TODO: fix in from_classical() to use a different function for parabolic values
-#    # e=1; should not raise an exception
-#    orbit_from_sbdb("test4", **test_kwargs)
+    # e=1.1; no body in SBDB should have e>1, but it seems to work
+    orbit_from_sbdb("test5", **test_kwargs)
 
-# TODO: fix in from_classical() to use a different function for hyperbolic values
-#    # e=1.1; should not raise an exception
-#    orbit_from_sbdb("test5", **test_kwargs)
+    # e=0; no body in SBDB should have e==0, but it seems to work
+    orbit_from_sbdb("test6", **test_kwargs)
+
+    # count=2
+    with pytest.raises(ValueError, match="different objects found"):
+        orbit_from_sbdb("test7", **test_kwargs)
