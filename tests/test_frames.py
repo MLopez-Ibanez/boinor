@@ -1,7 +1,6 @@
 from astropy import units as u
 from astropy.coordinates import (
     CartesianRepresentation,
-    UnitSphericalRepresentation,
     get_body_barycentric,
 )
 from astropy.tests.helper import assert_quantity_allclose
@@ -35,6 +34,7 @@ from boinor.frames.equatorial import (
     SaturnICRS,
     UranusICRS,
     VenusICRS,
+    _PlanetaryICRS,
 )
 from boinor.frames.fixed import (
     ITRS,
@@ -338,53 +338,85 @@ def test_get_frame(body, frame):
 
 
 def test_planetary_fixed():
+    epoch = J2000
     with pytest.raises(NotImplementedError) as excinfo:
-        _PlanetaryFixed._rot_elements_at_epoch(J2000, 123)
+        _PlanetaryFixed._rot_elements_at_epoch(epoch, 123)
     assert "NotImplementedError" in excinfo.exconly()
 
+    mf = MercuryFixed(obstime=epoch)
+    vf = VenusFixed(obstime=epoch)
+    sf = SunFixed(obstime=epoch)
 
-# these are not the correct equatorial_coordinates that are needed
-# (one with .body are needed)
-#    equatorial_coordinates = CartesianRepresentation(
-#        [
-#            (-1.40892271e08, 45067626.83900666, 19543510.68386639),
-#            (-1.4925067e08, 9130104.71634121, 3964948.59999307),
-#            (-1.46952333e08, -27413113.24215863, -11875983.21773582),
-#        ]
-#        * u.km,
-#        xyz_axis=1,
-#        differentials=CartesianDifferential(
-#            [
-#                (-10.14262131, -25.96929533, -11.25810932),
-#                (-2.28639444, -27.3906416, -11.87218591),
-#                (5.67814544, -26.84316701, -11.63720607),
-#            ]
-#            * (u.km / u.s),
-#            xyz_axis=1,
-#        ),
-#    )
+    inertial_position = GCRS(
+        0 * u.deg,
+        0 * u.deg,
+        Mercury.R,
+        obstime=epoch,
+        representation_type="spherical",
+    )
+    fixed_position = inertial_position.transform_to(mf)
+    sf_position = inertial_position.transform_to(sf)
+
+    # do some strange things in order to get exceptions, this is not really meaningful
+    test_from_equ = _PlanetaryFixed.from_equatorial(
+        fixed_position, mf
+    )  # this should only work without exception
+    with pytest.raises(
+        ValueError,
+        match="Fixed and equatorial coordinates must have the same body if the fixed frame body is not Sun",
+    ):
+        _PlanetaryFixed.from_equatorial(fixed_position, vf)
+    with pytest.raises(
+        ValueError, match="Equatorial coordinates must be of type `HCRS`, got"
+    ):
+        _PlanetaryFixed.from_equatorial(fixed_position, sf)
+
+    test_to_equ = _PlanetaryFixed.to_equatorial(test_from_equ, mf)
+    with pytest.raises(
+        ValueError,
+        match="Fixed and equatorial coordinates must have the same body if the fixed frame body is not Sun",
+    ):
+        _PlanetaryFixed.to_equatorial(fixed_position, vf)
+    with pytest.raises(
+        ValueError, match="Equatorial coordinates must be of type `HCRS`, got"
+    ):
+        _PlanetaryFixed.to_equatorial(sf_position, mf)
+
+    assert_quantity_allclose(fixed_position.ra, test_to_equ.ra)
+    assert_quantity_allclose(fixed_position.dec, test_to_equ.dec)
+    assert_quantity_allclose(fixed_position.distance, test_to_equ.distance)
+
+
+def test_planetary_icrs_class():
+    epoch = J2000
+
+    mf = MercuryICRS(obstime=epoch)
+    vf = VenusICRS(obstime=epoch)
+    sf = SunFixed(obstime=epoch)
+
+    inertial_position = GCRS(
+        0 * u.deg,
+        0 * u.deg,
+        Mercury.R,
+        obstime=epoch,
+        representation_type="spherical",
+    )
+    icrs_position = inertial_position.transform_to(mf)
+    inertial_position.transform_to(sf)
+
+    # do some strange things in order to get exceptions, this is not really meaningful
+    _PlanetaryICRS.from_icrs(
+        icrs_position, mf
+    )  # this should only work without exception
+    #    with pytest.raises(ValueError, match="Fixed and equatorial coordinates must have the same body if the fixed frame body is not Sun"):
+    _PlanetaryICRS.from_icrs(icrs_position, vf)
+
+
+# todo: what can be done here?
+#    test_to_icrs=_PlanetaryICRS.to_icrs(test_from_icrs, mf)
+#    with pytest.raises(ValueError, match="Fixed and equatorial coordinates must have the same body if the fixed frame body is not Sun"):
+#    to_icrs=_PlanetaryICRS.to_icrs(icrs_position, vf)
 #
-#    with pytest.raises(ValueError) as excinfo:
-#        fr=_PlanetaryFixed.from_equatorial(equatorial_coordinates, VenusFixed)
-#    assert "Fixed and equatorial coordinates" in excinfo.exconly()
-
-
-@pytest.mark.parametrize(
-    "body, frame",
-    [
-        (Mercury, MercuryICRS),
-        (Venus, VenusICRS),
-        (Mars, MarsICRS),
-        (Jupiter, JupiterICRS),
-        (Saturn, SaturnICRS),
-        (Uranus, UranusICRS),
-        (Neptune, NeptuneICRS),
-    ],
-)
-def test_planetary_icrs_class(body, frame):
-    UnitSphericalRepresentation(0 * u.deg, 75 * u.deg)
-
-
-# WIP
-#    dummy=1
-#    to=frame.to_icrs(equatorial_coordinates, dummy)
+#    assert_quantity_allclose(fixed_position.ra, test_to_equ.ra)
+#    assert_quantity_allclose(fixed_position.dec, test_to_equ.dec)
+#    assert_quantity_allclose(fixed_position.distance, test_to_equ.distance)
