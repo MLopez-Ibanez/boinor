@@ -62,14 +62,6 @@ jobs:
     environment:
       TOXENV: tests313-fast
 
-  tests313-veryfast:
-    <<: *test-template
-    description: Tests very fast - Python 3.13
-    docker:
-      - image: python:3.13
-    environment:
-      TOXENV: tests313-veryfast
-
   tests313-online:
     <<: *test-template
     description: Tests online - Python 3.13
@@ -128,9 +120,6 @@ workflows:
           requires:
             - quality
       - tests313-fast:
-          requires:
-            - quality
-      - tests313-veryfast:
           requires:
             - quality
       - tests313-online:
