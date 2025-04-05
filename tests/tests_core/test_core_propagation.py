@@ -1,14 +1,22 @@
 from astropy import units as u
 from astropy.tests.helper import assert_quantity_allclose
-import numpy as np
 import pytest
 
+from boinor.bodies import Earth
 from boinor.core.propagation import (
+    danby,
     danby_coe,
+    farnocchia,
+    gooding,
     gooding_coe,
+    markley,
     markley_coe,
+    mikkola,
     mikkola_coe,
+    pimienta,
     pimienta_coe,
+    recseries,
+    vallado,
 )
 from boinor.core.propagation.farnocchia import (
     M_to_D_near_parabolic,
@@ -98,12 +106,61 @@ def test_farnocchia_stuff():
     assert_quantity_allclose(expected_value, value)
 
 
-def test_recseries_stuff():
-    np.ndarray([11, 12, 13]) * u.km
-    np.ndarray([21, 22, 23]) * u.km / u.s
-    3.4 * u.h
+def test_kepler_algorithm():
+    k = Earth.k
+    r0 = [5000.0, 10000.0, 2100.0] * u.km
+    v0 = [15.0, 110.0, 12.0] * u.km / u.s
+    [-14600.0, 2500.0, 7000.0] * u.km
+    tof = 1.0 * u.h
+    numiter = 100
+    expected_r = [2532.06252977, 5067.56395212, 1063.7112836]
+    expected_v = [-114809.18251688, -229616.31786688, -48219.71079645]
+
+    # todo: all these functions calculate the same and should get the same results
+    #       some result diverge, why??
+    value_recseries = recseries(k, r0, v0, tof)
+    # print("recseries: ", value_recseries)
+    assert_quantity_allclose(expected_r, value_recseries[0])
+    assert_quantity_allclose(expected_v, value_recseries[1])
+
+    pimienta(k, r0, v0, tof)
+    # print("pimienta: ", value)
+    #    assert_quantity_allclose(expected_r, value[0])
+    #    assert_quantity_allclose(expected_v, value[1])
+
+    vallado(k, r0, v0, tof, numiter)
+    # print("vallado: ", value)
+    #    assert_quantity_allclose(expected_r, value[0])
+    #    assert_quantity_allclose(expected_v, value[1])
+
+    value_danby = danby(k, r0, v0, tof)
+    # print("danby: ", value_danby)
+    assert_quantity_allclose(expected_r, value_danby[0])
+    assert_quantity_allclose(expected_v, value_danby[1])
+
+    value_gooding = gooding(k, r0, v0, tof)
+    # print("gooding: ", value_gooding)
+    assert_quantity_allclose(expected_r, value_gooding[0])
+    assert_quantity_allclose(expected_v, value_gooding[1])
+
+    value_markley = markley(k, r0, v0, tof)
+    # print("markley: ", value_markley)
+    assert_quantity_allclose(expected_r, value_markley[0])
+    assert_quantity_allclose(expected_v, value_markley[1])
+
+    mikkola(k, r0, v0, tof)
+    # print("mikkola: ", value)
+    #    assert_quantity_allclose(expected_r, value[0])
+    #    assert_quantity_allclose(expected_v, value[1])
+
+    value_farnocchia = farnocchia(k, r0, v0, tof)
+    # print("farnocchia: ", value_farnocchia)
+    assert_quantity_allclose(expected_r, value_farnocchia[0])
+    assert_quantity_allclose(expected_v, value_farnocchia[1])
 
 
-# FIXME: what parameters need to be used here?
-#    value=recseries(k, r0, v0, tof)
-#    print("XXX value: ", value)
+# todo: does not work
+#    value_cowell_r, value_cowell_v=cowell(k, r0, v0, tof)
+#    print("cowell: ", value_cowell_r, value_cowell_v)
+#    assert_quantity_allclose(expected_r, value_cowel_r)
+#    assert_quantity_allclose(expected_v, value_cowel_v)
