@@ -86,6 +86,32 @@ jobs:
     environment:
       TOXENV: tests313-images
 
+  tests311-coverage:
+    <<: *test-template
+    description: Tests coverage - Python 3.11
+    docker:
+      - image: python:3.11
+    environment:
+      TOXENV: tests311-coverage
+    steps:
+      - checkout
+      - run: python -m pip install tox
+      - run: tox -- -s
+      - run: python -m pip install codecov && codecov
+
+  tests312-coverage:
+    <<: *test-template
+    description: Tests coverage - Python 3.12
+    docker:
+      - image: python:3.12
+    environment:
+      TOXENV: tests312-coverage
+    steps:
+      - checkout
+      - run: python -m pip install tox
+      - run: tox -- -s
+      - run: python -m pip install codecov && codecov
+
   tests313-coverage:
     <<: *test-template
     description: Tests coverage - Python 3.13
@@ -96,7 +122,7 @@ jobs:
     steps:
       - checkout
       - run: python -m pip install tox
-      - run: tox
+      - run: tox -- -s
       - run: python -m pip install codecov && codecov
 
 workflows:
@@ -132,5 +158,11 @@ workflows:
           requires:
             - quality
       - tests313-coverage:
+          requires:
+            - quality
+      - tests312-coverage:
+          requires:
+            - quality
+      - tests311-coverage:
           requires:
             - quality

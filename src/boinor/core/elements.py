@@ -388,6 +388,9 @@ def rv2coe(k, r, v, tol=1e-8):
     inc = np.arccos(h[2] / norm(h))
 
     circular = ecc < tol
+    print("XXX inc: ", inc)
+    print("XXX abs(inc): ", abs(inc))
+    print("XXX tol: ", tol)
     equatorial = abs(inc) < tol
 
     if equatorial and not circular:
