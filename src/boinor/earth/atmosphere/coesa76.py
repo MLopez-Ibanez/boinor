@@ -220,7 +220,15 @@ class COESA76(COESA):
 
             # A 4th order polynomial is used to approximate pressure.  This was
             # directly taken from: http://www.braeunig.us/space/atmmodel.htm
-            A, B, C, D, E = self._get_coefficients_avobe_86(z, p_coeff)
+            (  # pylint: disable=W0632   # there is a dynamical list of return values
+                A,
+                B,
+                C,
+                D,
+                E,
+            ) = self._get_coefficients_avobe_86(
+                z, p_coeff
+            )
 
             # Solve the polynomial
             z = z.to_value(u.km)
@@ -256,7 +264,15 @@ class COESA76(COESA):
 
             # A 4th order polynomial is used to approximate pressure.  This was
             # directly taken from: http://www.braeunig.us/space/atmmodel.htm
-            A, B, C, D, E = self._get_coefficients_avobe_86(z, rho_coeff)
+            (  # pylint: disable=W0632   # there is a dynamical list of return values
+                A,
+                B,
+                C,
+                D,
+                E,
+            ) = self._get_coefficients_avobe_86(
+                z, rho_coeff
+            )
 
             # Solve the polynomial
             z = z.to_value(u.km)
