@@ -88,7 +88,7 @@ class BasePlotly(OrbitPlotterBackend):
 
     def undraw_attractor(self):
         """Removes the attractor from the scene."""
-        pass
+        pass  # pylint: disable=unnecessary-pass
 
     def draw_position(self, position, *, color, label, size):
         """Draw the position of a body in the scene.
@@ -140,11 +140,11 @@ class BasePlotly(OrbitPlotterBackend):
 
     def update_legend(self):
         """Update the legend of the scene."""
-        pass
+        pass  # pylint: disable=unnecessary-pass
 
     def resize_limits(self):
         """Resize the limits of the scene."""
-        pass
+        pass  # pylint: disable=unnecessary-pass
 
     def show(self):
         """Display the scene."""
