@@ -456,8 +456,7 @@ disable=too-many-locals,
         protected-access,
         keyword-arg-before-vararg,
         bad-classmethod-argument,
-        use-implicit-booleaness-not-len,
-        undefined-loop-variable
+        use-implicit-booleaness-not-len
 
 
 # Enable the message, report, category or checker with the given id(s). You can
