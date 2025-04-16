@@ -446,7 +446,7 @@ def _halley(p0, T0, ll, tol, maxiter):
     this module and is not really reusable.
 
     """
-    for ii in range(maxiter):
+    for _ii in range(maxiter):
         y = _compute_y(p0, ll)
         fder = _tof_equation_p(p0, y, T0, ll)
         fder2 = _tof_equation_p2(p0, y, T0, fder, ll)
@@ -474,7 +474,7 @@ def _householder(p0, T0, ll, M, tol, maxiter):
     this module and is not really reusable.
 
     """
-    for ii in range(maxiter):
+    for _ii in range(maxiter):
         y = _compute_y(p0, ll)
         fval = _tof_equation_y(p0, y, T0, ll, M)
         T = fval + T0

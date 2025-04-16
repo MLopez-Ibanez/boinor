@@ -91,7 +91,7 @@ class Jacchia77:
 
     def _O_and_O2_correction(self, alt):
         """Add Jacchia 1977 empirical corrections to [O] and [O2]."""
-        Z, T, CN2, CO2, CO, CAr, CHe, CH, CM, WM = self._altitude_profile(alt)
+        Z, _T, CN2, CO2, CO, CAr, CHe, CH, CM, WM = self._altitude_profile(alt)
         _O_and_O2_correction_fast(
             alt, self.Texo, Z, CN2, CO2, CO, CAr, CHe, CH, CM, WM
         )
@@ -169,7 +169,9 @@ class Jacchia77:
         rho: ~astropy.units.Quantity
             Density at given altitude and exospheric temperature.
         """
-        (Z, T, CN2, CO2, CO, CAr, CHe, CH, CM, WM) = self.altitude_profile(alt)
+        (_Z, _T, CN2, CO2, CO, CAr, CHe, CH, _CM, _WM) = self.altitude_profile(
+            alt
+        )
 
         # using eqn(42) of COESA for multiple gases
         M_i = [wmN2, wmO2, wmO, wmAr, wmHe, wmH] << (u.g / u.mol)
