@@ -191,3 +191,31 @@ exclude_patterns.extend(["autoapi/index.rst", "autoapi/boinor/index.rst"])
 # Ignore sphinx-autoapi warnings on reimported objects
 # See https://github.com/readthedocs/sphinx-autoapi/issues/285
 suppress_warnings.append("autoapi.python_import_resolution")
+
+nbsphinx_allow_errors = True
+
+latex_engine = "xelatex"
+
+# FreeSerif needed for xelatex
+latex_elements = {
+    "fontpkg": """
+\setmainfont{FreeSerif}[
+  UprightFont    = *,
+  ItalicFont     = *Italic,
+  BoldFont       = *Bold,
+  BoldItalicFont = *BoldItalic
+]
+\setsansfont{FreeSans}[
+  UprightFont    = *,
+  ItalicFont     = *Oblique,
+  BoldFont       = *Bold,
+  BoldItalicFont = *BoldOblique,
+]
+\setmonofont{FreeMono}[
+  UprightFont    = *,
+  ItalicFont     = *Oblique,
+  BoldFont       = *Bold,
+  BoldItalicFont = *BoldOblique,
+]
+""",
+}
