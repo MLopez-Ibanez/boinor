@@ -23,11 +23,11 @@ def vallado(k, r0, r, tof, M, prograde, lowpath, numiter, rtol):
 
     .. math::
 
-        \begin{align}
+        \begin{aligned}
             f = 1 -\frac{y}{r_{o}} \\
             g = A\sqrt{\frac{y}{\mu}} \\
             \dot{g} = 1 - \frac{y}{r} \\
-        \end{align}
+        \end{aligned}
 
     Where y(z) is a function that depends on the :py:mod:`boinor.core.stumpff` coefficients:
 

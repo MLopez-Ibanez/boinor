@@ -20,10 +20,10 @@ def hohmann(k, rv, r_f):
     The Hohmann maneuver velocities can be expressed as:
 
     .. math::
-        \begin{align}
+        \begin{aligned}
             \Delta v_{a} &= \sqrt{\frac{2\mu}{r_{i}} - \frac{\mu}{a_{trans}}} - v_{i}\\
             \Delta v_{b} &= \sqrt{\frac{\mu}{r_{f}}} - \sqrt{\frac{2\mu}{r_{f}} - \frac{\mu}{a_{trans}}}
-        \end{align}
+        \end{aligned}
 
     The time that takes to complete the maneuver can be computed as:
 
@@ -75,28 +75,28 @@ def bielliptic(k, r_b, r_f, rv):
     relationships as follows:
 
     .. math::
-        \begin{align}
+        \begin{aligned}
             a_{trans1} &= \frac{r_{i} + r_{b}}{2}\\
             a_{trans2} &= \frac{r_{b} + r_{f}}{2}\\
-        \end{align}
+        \end{aligned}
 
     The increments in the velocity are:
 
     .. math::
-        \begin{align}
+        \begin{aligned}
             \Delta v_{a} &= \sqrt{\frac{2\mu}{r_{i}} - \frac{\mu}{a_{trans1}}} - v_{i}\\
             \Delta v_{b} &= \sqrt{\frac{2\mu}{r_{b}} - \frac{\mu}{a_{trans2}}} - \sqrt{\frac{2\mu}{r_{b}} - \frac{\mu}{a_trans{1}}}\\
             \Delta v_{c} &= \sqrt{\frac{\mu}{r_{f}}} - \sqrt{\frac{2\mu}{r_{f}} - \frac{\mu}{a_{trans2}}}\\
-        \end{align}
+        \end{aligned}
 
     The time of flight for this maneuver is the addition of the time needed for both transition orbits, following the same formula as
     Hohmann:
 
     .. math::
-        \begin{align}
+        \begin{aligned}
             \tau_{trans1} &= \pi \sqrt{\frac{a_{trans1}^{3}}{\mu}}\\
             \tau_{trans2} &= \pi \sqrt{\frac{a_{trans2}^{3}}{\mu}}\\
-        \end{align}
+        \end{aligned}
 
     Parameters
     ----------

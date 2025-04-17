@@ -159,12 +159,13 @@ def coe2rv(k, p, ecc, inc, raan, argp, nu):
     Notes
     -----
     .. math::
-        \begin{align}
+
+        \begin{aligned}
             \vec{r}_{IJK} &= [ROT3(-\Omega)][ROT1(-i)][ROT3(-\omega)]\vec{r}_{PQW}
                                = \left [ \frac{IJK}{PQW} \right ]\vec{r}_{PQW}\\
             \vec{v}_{IJK} &= [ROT3(-\Omega)][ROT1(-i)][ROT3(-\omega)]\vec{v}_{PQW}
                                = \left [ \frac{IJK}{PQW} \right ]\vec{v}_{PQW}\\
-        \end{align}
+        \end{aligned}
 
     Previous rotations (3-1-3) can be expressed in terms of a single rotation matrix:
 
@@ -251,14 +252,14 @@ def coe2mee(p, ecc, inc, raan, argp, nu):
     The conversion equations are taken directly from the original paper:
 
     .. math::
-        \begin{align}
+        \begin{aligned}
         p &= a(1-e^2) \\
         f &= e\cos(\omega + \Omega) \\
         g &= e\sin(\omega + \Omega) \\
         h &= \tan(\frac{i}{2})\cos(\Omega) \\
         k &= \tan(\frac{i}{2})\sin(\Omega) \\
         L &= \Omega + \omega + \theta \\
-        \end{align}
+        \end{aligned}
 
     """
     if inc == np.pi:
@@ -318,18 +319,18 @@ def rv2coe(k, r, v, tol=1e-8):
     2. With it the eccentricity can be solved:
 
     .. math::
-        \begin{align}
+        \begin{aligned}
         \vec{e} &= \frac{1}{\mu}\left [ \left ( v^{2} - \frac{\mu}{r}\right ) \vec{r}  - (\vec{r} \cdot \vec{v})\vec{v} \right ] \\
         e &= \sqrt{\vec{e}\cdot\vec{e}} \\
-        \end{align}
+        \end{aligned}
 
     3. The node vector line is solved:
 
     .. math::
-        \begin{align}
+        \begin{aligned}
         \vec{N} &= \vec{k} \times \vec{h} \\
         N &= \sqrt{\vec{N}\cdot\vec{N}}
-        \end{align}
+        \end{aligned}
 
     4. The rigth ascension node is computed:
 
@@ -435,14 +436,14 @@ def mee2coe(p, f, g, h, k, L):
 
     .. math::
 
-        \begin{align}
+        \begin{aligned}
             p &= a(1 - e^{2})\\
             e &= \sqrt{f^{2} + g^{2}}\\
             i &= 2\arctan{(\sqrt{h^{2} + k^{2}})}\\
             raan &= atan2(k, h) \pmod{2\pi}\\
             argp &= (atan2(g, f) - raan) \pmod{2\pi}\\
             nu &= (L - atan2(g, f)) \pmod{2\pi}\\
-        \end{align}
+        \end{aligned}
 
     Parameters
     ----------

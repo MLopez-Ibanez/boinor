@@ -471,11 +471,11 @@ class OrbitCreationMixin:
         Relationships among them are given by:
 
         .. math::
-            \begin{align}
+            \begin{aligned}
                 a &= \left (\frac{-3R_{\bigoplus}J_{2}\sqrt{\mu}\cos(i)}{2\dot{\Omega}(1-e^2)^2}  \right ) ^ {\frac{2}{7}}\\
                 e &= \sqrt{1 - \sqrt{\frac{-3R_{\bigoplus}J_{2}\sqrt{\mu}cos(i)}{2a^{\frac{7}{2}}\dot{\Omega}}}}\\
                 i &= \arccos{\left ( \frac{-2a^{\frac{7}{2}}\dot{\Omega}(1-e^2)^2}{3R_{\bigoplus}J_{2}\sqrt{\mu}} \right )}\\
-            \end{align}
+            \end{aligned}
 
         Parameters
         ----------
