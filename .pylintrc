@@ -447,7 +447,6 @@ disable=too-many-locals,
         chained-comparison,
         invalid-unary-operand-type,
         protected-access,
-        keyword-arg-before-vararg,
         use-implicit-booleaness-not-len
 
 
