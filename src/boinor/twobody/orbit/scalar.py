@@ -431,15 +431,21 @@ class Orbit(OrbitCreationMixin):
 
         # Check if propagator fulfills orbit requirements
         # Note there's a potential conversion here purely for convenience that could be skipped
-        if self.ecc < 1.0 and not (method.kind & PropagatorKind.ELLIPTIC):
+        if self.ecc < 1.0 and not (
+            method.kind & PropagatorKind.ELLIPTIC
+        ):  # pylint: disable=superfluous-parens   # for me it is easier to read this way
             raise ValueError(
                 "Can not use an parabolic/hyperbolic propagator for elliptical/circular orbits."
             )
-        if self.ecc == 1.0 and not (method.kind & PropagatorKind.PARABOLIC):
+        if self.ecc == 1.0 and not (
+            method.kind & PropagatorKind.PARABOLIC
+        ):  # pylint: disable=superfluous-parens  # for me it is easier to read this way
             raise ValueError(
                 "Can not use an elliptic/hyperbolic propagator for parabolic orbits."
             )
-        if self.ecc > 1.0 and not (method.kind & PropagatorKind.HYPERBOLIC):
+        if self.ecc > 1.0 and not (
+            method.kind & PropagatorKind.HYPERBOLIC
+        ):  # pylint: disable=superfluous-parens  # for me it is easier to read this way
             raise ValueError(
                 "Can not use an elliptic/parabolic propagator for hyperbolic orbits."
             )
