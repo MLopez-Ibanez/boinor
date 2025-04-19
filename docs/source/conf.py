@@ -29,6 +29,7 @@ extensions = [
     "hoverxref.extension",
     "myst_parser",
     "sphinx_github_role",
+    "sphinxcontrib.bibtex",
 ]
 
 # GitHub role config
@@ -219,3 +220,5 @@ latex_elements = {
 ]
 """,
 }
+
+bibtex_bibfiles = ["boinor.bib"]

@@ -97,6 +97,7 @@ doc = [
     "sphinx-notfound-page",
     "sphinx-copybutton", # >0.2.9",
     "sphinx-github-role", # ~=0.1.0",
+    "sphinxcontrib-bibtex",
 ]
 test = [
     "coverage",
