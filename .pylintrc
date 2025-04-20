@@ -442,7 +442,6 @@ disable=too-many-locals,
         cyclic-import,
         consider-using-in,
         arguments-differ,
-        chained-comparison,
         invalid-unary-operand-type,
         protected-access,
         use-implicit-booleaness-not-len
