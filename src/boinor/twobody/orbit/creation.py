@@ -104,8 +104,7 @@ class OrbitCreationMixin:
             )
         if coord.size != 1:
             raise ValueError(
-                "Coordinate instance must represents exactly 1 position, found: %d"
-                % coord.size
+                f"Coordinate instance must represents exactly 1 position, found: {coord.size}"
             )
 
         # Reshape coordinate to 0 dimension if it is not already dimensionless.
