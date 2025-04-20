@@ -253,6 +253,11 @@ class RVState(BaseState):
             self.plane,
         )
 
+    def to_equinoctial(self):
+        # TODO: gives pylint abstract_method but what shall we do here?
+        # this is nonsense
+        return self
+
 
 class ModifiedEquinoctialState(BaseState):
     """State defined by modified equinoctial elements representation.
@@ -337,3 +342,8 @@ class ModifiedEquinoctialState(BaseState):
         return RVState(
             self.attractor, (r << u.km, v << u.km / u.s), self.plane
         )
+
+    def to_equinoctial(self):
+        # TODO: gives pylint abstract_method but what shall we do here?
+        # this is nonsense
+        return self

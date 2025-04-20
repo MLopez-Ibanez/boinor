@@ -56,6 +56,78 @@ class BasePlotly(OrbitPlotterBackend):
         """
         return self._layout
 
+    def draw_marker(self, position, *, color, label, marker_symbol, size):
+        """Draw desired marker into the scene.
+
+        Parameters
+        ----------
+        position : list[float, float, float]
+            A list containing the x, y and z coordinates of the point.
+        color : str
+            A string representing the hexadecimal color for the point.
+        label : str
+            The name to be used in the legend for the marker.
+        marker_symbol : str
+            The marker symbol to be used when drawing the point.
+        size : float
+            The size of the marker.
+
+        """
+        raise NotImplementedError(
+            "This method is expected to be overridden by a plotting backend class."
+        )
+
+    def draw_sphere(self, position, *, color, label, radius):
+        """Draw an sphere into the scene.
+
+        Parameters
+        ----------
+        position : list[float, float, float]
+            A list containing the x, y and z coordinates of the sphere location.
+        color : str
+            A string representing the hexadecimal color for the sphere.
+        label : str
+            The name to be used in the legend for the marker.
+        radius : float
+            The radius of the sphere.
+
+        """
+        raise NotImplementedError(
+            "This method is expected to be overridden by a plotting backend class."
+        )
+
+    def draw_coordinates(self, coordinates, *, colors, label, size):
+        """Draw desired coordinates into the scene.
+
+        Parameters
+        ----------
+        position : list[list[float, float, float], ...]
+            A set of lists containing the x, y and z coordinates of the sphere location.
+        colors : list[str]
+            A string representing the hexadecimal color for the coordinates.
+        label : str
+            The name to be used in the legend for the marker.
+        size : float
+            The size of the marker for drawing the coordinates.
+
+        """
+        raise NotImplementedError(
+            "This method is expected to be overridden by a specific plotting backend."
+        )
+
+    def draw_axes_labels_with_length_scale_units(self, length_scale_units):
+        """Draw the desired label into the specified axis.
+
+        Parameters
+        ----------
+        lenght_scale_units : ~astropy.units.Unit
+            Desired units of lenght used for representing distances.
+
+        """
+        raise NotImplementedError(
+            "This method is expected to be overridden by a specific plotting backend."
+        )
+
     def update_layout(self, layout):
         """Update the layout of the figure scene.
 
