@@ -302,7 +302,8 @@ class Plotly2D(BasePlotly):
             y=position[1],
             marker=marker_style,
             name=label,
-            showlegend=False if label is None else True,
+            # XXX showlegend=False if label is None else True,
+            showlegend=label is not None,
         )
         self.figure.add_trace(marker_trace)
         return marker_trace
@@ -381,7 +382,8 @@ class Plotly2D(BasePlotly):
             line=dict(color=colors[0], width=5, dash=linestyle),
             mode="lines",
             name=label,
-            showlegend=False if label is None else True,
+            # XXX showlegend=False if label is None else True,
+            showlegend=label is not None,
         )
         self.figure.add_trace(coordinates_trace)
         return coordinates_trace
@@ -460,7 +462,8 @@ class Plotly3D(BasePlotly):
             z=position[2],
             marker=marker_style,
             name=label,
-            showlegend=False if label is None else True,
+            # XXX showlegend=False if label is None else True,
+            showlegend=label is not None,
         )
         self.figure.add_trace(marker_trace)
         return marker_trace
@@ -496,7 +499,8 @@ class Plotly3D(BasePlotly):
             cmax=1,
             showscale=False,
             name=label,
-            showlegend=False if label is None else True,
+            # XXX showlegend=False if label is None else True,
+            showlegend=label is not None,
         )
         self.figure.add_trace(sphere)
         return sphere
@@ -532,7 +536,8 @@ class Plotly3D(BasePlotly):
             line=dict(color=colors[0], width=5, dash=linestyle),
             mode="lines",
             name=label,
-            showlegend=False if label is None else True,
+            # XXX showlegend=False if label is None else True,
+            showlegend=label is not None,
         )
         self.figure.add_trace(coordinates_trace)
         return coordinates_trace
