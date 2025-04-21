@@ -509,10 +509,10 @@ class OrbitCreationMixin:
             a, ecc, inc = heliosynchronous(
                 attractor.k, attractor.R, attractor.J2, n_sunsync, a, ecc, inc
             )
-        except FloatingPointError:
+        except FloatingPointError as e:
             raise ValueError(
                 "No SSO orbit with given parameters can be found."
-            )
+            ) from e
 
         ss = cls.from_classical(
             attractor=attractor,
