@@ -432,15 +432,7 @@ disable=too-many-locals,
         missing-module-docstring,
         R0801,
         fixme,
-        line-too-long,
-        attribute-defined-outside-init,
-        redefined-outer-name,
-        use-dict-literal,
-        cyclic-import,
-        arguments-differ,
-        invalid-unary-operand-type,
-        protected-access,
-        use-implicit-booleaness-not-len
+        line-too-long
 
 
 # Enable the message, report, category or checker with the given id(s). You can
