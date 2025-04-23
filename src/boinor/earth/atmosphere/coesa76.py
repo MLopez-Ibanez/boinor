@@ -389,8 +389,8 @@ class COESA76(COESA):
             )
         T = self.temperature(alt, geometric=geometric).value
         # Using eqn-(53)
-        k = (2.64638e-3 * T**1.5 / (T + 245.4 * (10 ** (-12.0 / T)))) * (
+        kk = (2.64638e-3 * T**1.5 / (T + 245.4 * (10 ** (-12.0 / T)))) * (
             u.J / u.m / u.s / u.K
         )
 
-        return k
+        return kk
