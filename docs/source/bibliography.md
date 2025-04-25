@@ -11,7 +11,8 @@ order:
 
 - Vallado, David A., and Wayne D. McClain. *Fundamentals of
   astrodynamics and applications*. Vol. 12. Springer Science &
-  Business Media, 2001. (:cite:t:`2001:vallado`)
+  Business Media, 2001.
+  ({cite:t}`2001:vallado`)
 - Curtis, Howard. *Orbital mechanics for engineering students*.
   Butterworth-Heinemann, 2013.
 - Bate, Roger R., Donald D. Mueller, William W. Saylor, and Jerry E.

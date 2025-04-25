@@ -111,7 +111,7 @@ intersphinx_mapping = {
 # Warning suppresses
 suppress_warnings = ["image.nonlocal_uri"]
 
-if os.environ.get("POLIASTRO_SKIP_NOTEBOOKS") == "True":
+if os.environ.get("BOINOR_SKIP_NOTEBOOKS") == "True":
     nbsphinx_execute = "never"
     suppress_warnings.append("nbsphinx.thumbnail")
 else:
