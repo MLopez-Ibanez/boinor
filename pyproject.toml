@@ -161,6 +161,9 @@ known-first-party = ["boinor"]
 [tool.ruff.mccabe]
 max-complexity = 18
 
+[tool.ruff.lint]
+select = ["NPY201"]
+
 [tool.mypy]
 check_untyped_defs = true
 strict_optional = false
