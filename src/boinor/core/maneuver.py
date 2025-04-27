@@ -168,16 +168,15 @@ def correct_pericenter(k, R, J2, max_delta_r, v, a, inc, ecc):
 
     Notes
     -----
-    The algorithm was obtained from "Fundamentals of Astrodynamics and Applications, 4th ed (2013)" by David A.
-    Vallado, page 885.
-    Given a max_delta_r, we determine the maximum perigee drift before we do an orbit-adjustment burn
+    The algorithm was obtained from :cite:t:`Vallado2013`, page 885.
+    Given a ``max_delta_r``, we determine the maximum perigee drift before we do an orbit-adjustment burn
     to restore the perigee to its nominal value. We estimate the time until this burn using the allowable drift
     delta_w and the drift rate :math:`|dw|`.
-    For positive delta_v, the change in the eccentricity is positive for perigee burns and negative for apogee burns.
-    The opposite holds for a delta_v applied against the velocity vector, which decreases the satellite’s velocity.
+    For positive ``delta_v``, the change in the eccentricity is positive for perigee burns and negative for apogee burns.
+    The opposite holds for a ``delta_v`` applied against the velocity vector, which decreases the satellite’s velocity.
     Perigee drift are mainly due to the zonal harmonics, which cause variations in the altitude by changing the
     argument of perigee.
-    Please note that ecc ≈ 0.001, so the error incurred by assuming a small eccentricity is on the order of 0.1%.
+    Please note that ``ecc`` ≈ 0.001, so the error incurred by assuming a small eccentricity is on the order of 0.1%.
     This is smaller than typical variations in thruster performance between burns.
 
     """

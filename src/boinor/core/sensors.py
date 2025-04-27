@@ -26,8 +26,7 @@ def min_and_max_ground_range(h, η_fov, η_center, R):
 
     Notes
     -----
-    For further information, please take a look at "Fundamentals of Astrodynamics and Applications", 4th ed (2013)"
-    by David A. Vallado, pages 853-860.
+    For further information, please take a look at :cite:t:`Vallado2013`, pages 853-860.
 
     """
     r_sat = R + h
@@ -83,8 +82,7 @@ def ground_range_diff_at_azimuth(h, η_fov, η_center, β, φ_nadir, λ_nadir, R
 
     Notes
     -----
-    For further information, please take a look at "Fundamentals of Astrodynamics and Applications", 4th ed (2013)"
-    by David A. Vallado, pages 853-860.
+    For further information, please take a look at :cite:t:`Vallado2013`, pages 853-860.
 
     """
     if not 0 <= β < np.pi:
