@@ -42,7 +42,7 @@ boinor in your publications:
     Juan Luis Cano Rodríguez, Jorge Martinez, et al.. (2023). boinor: boinor 0.17.0. Zenodo. 10.5281/zenodo.6817189
 
 ![Multiple examples image](https://github.com/boinor/boinor/raw/main/docs/source/_static/examples.png)
--->
+
 
 ## Requirements
 
