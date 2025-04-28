@@ -78,8 +78,8 @@ def rv_pqw(k, p, ecc, nu):
 
     Notes
     -----
-    These formulas can be checked at Curtis 3rd. Edition, page 110. Also the
-    example proposed is 2.11 of Curtis 3rd Edition book.
+    These formulas can be checked at :cite:t:`Curtis2013`, 3rd Edition, page 110. Also the
+    example proposed is 2.11 of :cite:t:`Curtis2013`, 3rd Edition book.
 
     .. math::
 
@@ -208,7 +208,7 @@ def coe2rv_many(k, p, ecc, inc, raan, argp, nu):
 def coe2mee(p, ecc, inc, raan, argp, nu):
     r"""Converts from classical orbital elements to modified equinoctial orbital elements.
 
-    The definition of the modified equinoctial orbital elements is taken from [Walker, 1985].
+    The definition of the modified equinoctial orbital elements is taken from :cite:t:`Walker1985`.
 
     The modified equinoctial orbital elements are a set of orbital elements that are useful for
     trajectory analysis and optimization. They are valid for circular, elliptic, and hyperbolic
@@ -308,8 +308,7 @@ def rv2coe(k, r, v, tol=1e-8):
 
     Notes
     -----
-    This example is a real exercise from Orbital Mechanics for Engineering
-    students by Howard D.Curtis. This exercise is 4.3 of 3rd. Edition, page 200.
+    This example is a real exercise from :cite:t:`Curtis2013`, 3rd Edition, exercise is 4.3, page 200.
 
     1. First the angular momentum is computed:
 
@@ -432,7 +431,7 @@ def mee2coe(p, f, g, h, k, L):
     orbital elements.
 
     The definition of the modified equinoctial orbital elements is taken from
-    [Walker, 1985].
+    :cite:t:`Walker1985`.
 
     .. math::
 

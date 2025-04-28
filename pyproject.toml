@@ -133,12 +133,13 @@ exclude = [
 [tool.black]
 line-length = 79
 
-[tool.ruff]
-select = [
-    "E",  # pycodestyle, see https://github.com/charliermarsh/ruff#pycodestyle-e-w
-#    "D",  # pydocstyle, see https://github.com/charliermarsh/ruff#pydocstyle-d
-    "F",  # pyflakes, see https://github.com/charliermarsh/ruff#pyflakes-f
-    "I"   # isort, see https://github.com/charliermarsh/ruff#isort-i
+[tool.ruff.lint]
+extend-select = [
+    "E",  # pycodestyle, see https://docs.astral.sh/ruff/rules/#pycodestyle-e-w
+#    "D",  # pydocstyle, see https://docs.astral.sh/ruff/rules/#pydocstyle-d
+    "F",  # pyflakes, see https://docs.astral.sh/ruff/rules/#pyflakes-f
+    "I",   # isort, see https://docs.astral.sh/ruff/rules/#isort-i
+    "NPY201", "NPY003",
 ]
 
 ignore = [
@@ -153,16 +154,13 @@ exclude = [
     "dist",
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 combine-as-imports = true
 force-sort-within-sections = true
 known-first-party = ["boinor"]
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 18
-
-[tool.ruff.lint]
-select = ["NPY201"]
 
 [tool.mypy]
 check_untyped_defs = true

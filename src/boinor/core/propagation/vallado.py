@@ -67,7 +67,7 @@ def vallado(k, r0, v0, tof, numiter):
 
     Notes
     -----
-    The theoretical procedure is explained in section 3.7 of Curtis in really
+    The theoretical procedure is explained in section 3.7 of :cite:t:`Curtis2013` in really
     deep detail. For analytical example, check in the same book for example 3.6.
 
     """
